@@ -1,0 +1,287 @@
+---
+title: "Homework 02"
+author: "Sebastien Moeller"
+date: "08/01/2018"
+output: html_document
+---
+
+# Set-up
+## Dependencies
+```{r}
+if (!require("pacman")) install.packages("pacman")
+
+pacman::p_load(RCurl, XML, dplyr, stringr, rvest, audio, sentimentr, lexicon)
+```
+
+## Functions
+### trim function removes unnecessary whitespace from html documents
+```{r}
+trim <- function(x){
+  gsub("^\\s+|\\s+$", "", x)
+}
+```
+
+### maxPageAmazon returns the number of pages of reviews a product has
+```{r}
+# Scrapper need to know how many pages to go through, this returns that value
+maxPageAmazon <- function(code, region){
+  url <- paste0("http://www.amazon.", region, "/product-reviews/",code)
+  
+  doc <- tryCatch(read_html(url), error = function(e){'empty page'})
+  if(doc[1] == 'empty page')
+    {
+    maxPage = -1
+    }
+  else
+    {
+    doc <- doc %>% html_nodes("a") %>% html_text()
+    
+    idx = match(1, doc)
+    
+    if(is.na(idx))
+      {
+      maxPage = 1
+      }
+    else
+      {
+      maxPage = as.numeric(doc[match(1, doc)+4])
+      }
+    }
+  maxPage
+}
+```
+
+### amazonScrapper takes the information from one page and turns it into a data frame
+```{r}
+# Function goes through all pages of the reviews and store all the information neatly
+amazonScraper <- function(doc, reviewer = T, delay = 0){
+  
+  sec = 0
+  if(delay < 0) warning("delay was less than 0: set to 0")
+  # Randomize the delay
+  if(delay > 0) sec = max(0, delay + runif(1, -1, 1))
+  
+  # Save different parts of the html document to the corresponding variable
+  title <- doc %>%
+    html_nodes("#cm_cr-review_list .a-color-base") %>%
+    html_text()
+  
+  author <- doc %>%
+    html_nodes(".review-byline .author") %>%
+    html_text()
+  
+  date <- doc %>%
+    html_nodes("#cm_cr-review_list .review-date") %>%
+    html_text() %>% 
+    gsub(".*on ", "", .)
+  
+  ver.purchase <- doc%>%
+    html_nodes(".review-data.a-spacing-mini") %>%
+    html_text() %>%
+    grepl("Verified Purchase", .) %>%
+    as.numeric()
+
+  format <- doc %>% 
+    html_nodes(".review-data.a-spacing-mini") %>% 
+    html_text() %>%
+    gsub("Color: |\\|.*|Verified.*", "", .)
+  #if(length(format) == 0) format <- NA
+  
+  stars <- doc %>%
+    html_nodes("#cm_cr-review_list  .review-rating") %>%
+    html_text() %>%
+    str_extract("\\d") %>%
+    as.numeric()
+  
+  comments <- doc %>%
+    html_nodes("#cm_cr-review_list .review-text") %>%
+    html_text() 
+  
+  helpful <- doc %>%
+    html_nodes(".cr-vote-buttons .a-color-secondary") %>%
+    html_text() %>%
+    str_extract("[:digit:]+|One") %>%
+    gsub("One", "1", .) %>%
+    as.numeric()
+  
+  if(reviewer == T){
+    rver_url <- doc %>%
+      html_nodes(".review-byline .author") %>%
+      html_attr("href") %>%
+      gsub("/ref=cm_cr_othr_d_pdp\\?ie=UTF8", "", .) %>%
+      gsub("/gp/pdp/profile/", "", .) %>%
+      paste0("https://www.amazon.com/gp/cdp/member-reviews/",.) 
+    
+    #average rating of past 10 reviews
+    rver_avgrating_10 <- rver_url %>%
+      sapply(., function(x) {
+          read_html(x) %>%
+          html_nodes(".small span img") %>%
+          html_attr("title") %>%
+          gsub("out of.*|stars", "", .) %>%
+          as.numeric() %>%
+          mean(na.rm = T)
+      }) %>% as.numeric()
+  
+    rver_prof <- rver_url %>%
+      sapply(., function(x) 
+        read_html(x) %>%
+          html_nodes("div.small, td td td .tiny") %>%
+          html_text()
+      )
+    
+    rver_numrev <- rver_prof %>%
+      lapply(., function(x)
+        gsub("\n  Customer Reviews: |\n", "", x[1])
+      ) %>% as.numeric()
+    
+    rver_numhelpful <- rver_prof %>%
+      lapply(., function(x)
+        gsub(".*Helpful Votes:|\n", "", x[2]) %>%
+          trim()
+      ) %>% as.numeric()
+    
+    rver_rank <- rver_prof %>%
+      lapply(., function(x)
+        gsub(".*Top Reviewer Ranking:|Helpful Votes:.*|\n", "", x[2]) %>%
+          removePunctuation() %>%
+          trim()
+      ) %>% as.numeric()
+    
+    df <- data.frame(title, date, ver.purchase, format, stars, comments, helpful,
+                     rver_url, rver_avgrating_10, rver_numrev, rver_numhelpful, rver_rank, stringsAsFactors = F)
+  
+  } else df <- data.frame(title, author, date, ver.purchase, format, stars, comments, helpful, stringsAsFactors = F)
+  
+  return(df)
+}
+```
+
+## Find relevant pages
+We need a function that returns several URLs of the product we are interested in 
+```{r}
+
+```
+
+## Scraping function
+Calls amazonScrapper function for each page of reviews
+input: url, output: product reviews
+```{r}
+retrieveReviews <- function(url, delay = 2)
+  {
+  prod_code <- gsub("/.*","",gsub(".*/dp/", "", url))
+  prod_code
+  
+  region <- gsub("/.*","",gsub(".*amazon.", "", url))
+  region
+  
+  reviews_all <- NULL
+  
+  url <- paste0("https://www.amazon.", region, "/dp/", prod_code)
+  if(tryCatch(read_html(url), error = function(e){'empty page'})[1] == 'empty page')
+    {
+    print("Please check URL")
+    } 
+  else
+    {
+    doc <- read_html(url)
+
+    #obtain the text in the node, remove "\n" from the text, and remove white space
+    prod <- html_nodes(doc, "#productTitle") %>% html_text() %>% gsub("\n", "", .) %>% trim()
+    prod
+    
+    url <- paste0("https://www.amazon.", region, "/product-reviews/", prod_code)
+    if(tryCatch(read_html(url), error = function(e){'empty page'})[1] == 'empty page')
+      {
+      # There are no reviews
+      } 
+    else
+      {
+      numPage <- maxPageAmazon(prod_code, region)
+      if(numPage == -1)
+        {
+        # There are no reviews
+        } 
+      else
+        {
+        for(page_num in 1:numPage)
+          {
+        
+          url <- paste0("http://www.amazon.", region, "/product-reviews/", prod_code, "/?pageNumber=", page_num)
+          doc <- read_html(url)
+    
+          reviews <- amazonScraper(doc, reviewer = F, delay)
+        
+          if(numPage == 1)
+            {
+              reviews_all <- cbind(prod, reviews)
+            }
+          else
+            {
+              reviews_all <- rbind(reviews_all, cbind(prod, reviews))
+            }
+          }
+        }
+      }
+    }
+  reviews_all
+  }
+```
+
+# Start scrapping
+Output is a dataframe with all reviews and metrics included on the website
+```{r}
+# This example has only 1 page of reviews
+url <- "https://www.amazon.fr/Apple-iPhone-Smartphone-d%C3%A9bloqu%C3%A9-Ecran/dp/B075LYDD7Z/ref=sr_1_2?s=electronics&ie=UTF8&qid=1516045160&sr=1-2&keywords=iphone"
+
+# This example has no reviews
+#url <- "https://www.amazon.fr/Panpan-Protection-Anti-rayures-Ultra-claire-Transparent/dp/B0779Q1FKS/ref=sr_1_25_sspa?s=electronics&ie=UTF8&qid=1516043375&sr=1-25-spons&keywords=iphone+x&psc=1"
+
+# This example has multiple pages of reviews
+#url <- "https://www.amazon.fr/Ubegood-Anti-rayures-Absorption-Protection-Transparent/dp/B075FJWJYM/ref=sr_1_3?s=electronics&ie=UTF8&qid=1516049756&sr=1-3&keywords=iphone+x"
+
+test <- NULL
+test <- retrieveReviews(url)
+View(test)
+```
+
+
+
+
+
+
+
+
+# Sentiment analysis
+```{r}
+sent_agg <- with(test, sentiment_by(comments))
+head(sent_agg)
+```
+
+```{r}
+par(mfrow=c(1,2))
+with(test, hist(stars))
+with(sent_agg, hist(ave_sentiment))
+```
+
+```{r}
+worst_reviews <- slice(test, top_n(sent_agg, 10, -ave_sentiment)$element_id)
+with(worst_reviews, sentiment_by(comments)) %>% highlight()
+```
+
+```{r}
+best_reviews <- slice(test, top_n(sent_agg, 10, ave_sentiment)$element_id)
+with(best_reviews, sentiment_by(comments)) %>% highlight()
+```
+
+
+
+
+
+
+
+
+
+
+
+
