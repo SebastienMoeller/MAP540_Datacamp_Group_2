@@ -23,7 +23,6 @@ trim <- function(x){
 
 ### maxPageAmazon returns the number of pages of reviews a product has
 ```{r}
-# Scrapper need to know how many pages to go through, this returns that value
 maxPageAmazon <- function(code, region){
   url <- paste0("http://www.amazon.", region, "/product-reviews/",code)
   
@@ -53,7 +52,6 @@ maxPageAmazon <- function(code, region){
 
 ### amazonScrapper takes the information from one page and turns it into a data frame
 ```{r}
-# Function goes through all pages of the reviews and store all the information neatly
 amazonScraper <- function(doc, reviewer = T, delay = 0){
   
   sec = 0
