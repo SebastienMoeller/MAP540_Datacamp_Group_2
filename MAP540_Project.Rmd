@@ -1,11 +1,11 @@
 ---
-title: "Homework 02"
+title: "MAP 540 Datacamp Capgemini: Group 2"
 author: "Sebastien Moeller"
 date: "08/01/2018"
 output: html_document
 ---
 
-# Set-up
+# MAP540 Datacamp Project: Group 2
 ## Dependencies
 ```{r}
 if (!require("pacman")) install.packages("pacman")
@@ -158,7 +158,7 @@ amazonScraper <- function(doc, reviewer = T, delay = 0){
 ```
 
 ## Find relevant pages
-We need a function that returns several URLs of the product we are interested in 
+We need a function that returns several amazon URLs of the product we are interested in 
 ```{r}
 
 ```
@@ -242,7 +242,7 @@ url <- "https://www.amazon.fr/Apple-iPhone-Smartphone-d%C3%A9bloqu%C3%A9-Ecran/d
 
 test <- NULL
 test <- retrieveReviews(url)
-View(test)
+#View(test)
 ```
 
 
@@ -273,9 +273,6 @@ with(worst_reviews, sentiment_by(comments)) %>% highlight()
 best_reviews <- slice(test, top_n(sent_agg, 10, ave_sentiment)$element_id)
 with(best_reviews, sentiment_by(comments)) %>% highlight()
 ```
-
-
-
 
 
 
