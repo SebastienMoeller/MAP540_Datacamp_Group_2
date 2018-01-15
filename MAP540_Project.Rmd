@@ -50,7 +50,7 @@ maxPageAmazon <- function(code, region){
 }
 ```
 
-### amazonScrapper takes the information from one page and turns it into a data frame
+### amazonScraper takes the information from one page and turns it into a data frame
 ```{r}
 amazonScraper <- function(doc, reviewer = T, delay = 0){
   
@@ -162,7 +162,7 @@ We need a function that returns several amazon URLs of the product we are intere
 ```
 
 ## Scraping function
-Calls amazonScrapper function for each page of reviews
+Calls amazonScraper function for each page of reviews
 input: url, output: product reviews
 ```{r}
 retrieveReviews <- function(url, delay = 2)
@@ -226,7 +226,7 @@ retrieveReviews <- function(url, delay = 2)
   }
 ```
 
-# Start scrapping
+# Start scraping
 Output is a dataframe with all reviews and metrics included on the website
 ```{r}
 # This example has only 1 page of reviews
