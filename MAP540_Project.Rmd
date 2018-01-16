@@ -27,15 +27,16 @@ maxPageAmazon <- function(code, region){
   url <- paste0("http://www.amazon.", region, "/product-reviews/",code)
   
   doc <- tryCatch(read_html(url), error = function(e){'empty page'})
+  maxPage = 1
   if(doc[1] == 'empty page')
     {
-    maxPage = -1
+    maxPage = 1
     }
   else
     {
     doc <- doc %>% html_nodes("a") %>% html_text()
     
-    idx = match(1, doc)
+    idx = match("Next→", doc)
     
     if(is.na(idx))
       {
@@ -43,7 +44,7 @@ maxPageAmazon <- function(code, region){
       }
     else
       {
-      maxPage = as.numeric(doc[match(1, doc)+4])
+      maxPage = as.numeric(doc[match("Next→", doc)-1])
       }
     }
   maxPage
@@ -158,7 +159,30 @@ amazonScraper <- function(doc, reviewer = T, delay = 0){
 ## Find relevant pages
 We need a function that returns several amazon URLs of the product we are interested in 
 ```{r}
+urlsiPhoneX <- c("https://www.amazon.com/Apple-iPhone-GSM-Unlocked-5-8/dp/B075QMZH2L/ref=sr_1_1?s=wireless&ie=UTF8&qid=1516114069&sr=1-1&keywords=iphone+x&refinements=p_36%3A14674878011",
+                 "https://www.amazon.com/Apple-iPhone-Fully-Unlocked-5-8/dp/B075QN8NDH/ref=sr_1_2?s=wireless&ie=UTF8&qid=1516114069&sr=1-2&keywords=iphone+x&refinements=p_36%3A14674878011",
+                 "https://www.amazon.com/Apple-iPhone-Verizon-Wireless-256GB/dp/B076XHQPTN/ref=sr_1_10?s=wireless&ie=UTF8&qid=1516114069&sr=1-10&keywords=iphone+x&refinements=p_36%3A14674878011")
 
+urlsiPhone8 <- c("https://www.amazon.com/Apple-iPhone-Fully-Unlocked-Gold/dp/B075QJSQLH/ref=sr_1_2?s=wireless&ie=UTF8&qid=1516112112&sr=1-2&keywords=iphone+8&refinements=p_36%3A40000-99999999",
+                 "https://www.amazon.com/Apple-iPhone-Unlocked-Space-Gray/dp/B075QNGDZ9/ref=sr_1_3?s=wireless&ie=UTF8&qid=1516112112&sr=1-3&keywords=iphone+8&refinements=p_36%3A40000-99999999",
+                 "https://www.amazon.com/Apple-iPhone-Plus-Fully-Unlocked/dp/B075QNGHS8/ref=sr_1_6?s=wireless&ie=UTF8&qid=1516112112&sr=1-6&keywords=iphone+8&refinements=p_36%3A40000-99999999",
+                 "https://www.amazon.com/Apple-iPhone-Plus-Unlocked-Gold/dp/B075QLRSPJ/ref=sr_1_14?s=wireless&ie=UTF8&qid=1516112112&sr=1-14&keywords=iphone+8&refinements=p_36%3A40000-99999999")
+
+urlsSamsungG8 <- c("https://www.amazon.com/Samsung-Galaxy-S8-Unlocked-64GB/dp/B06Y14T5YW/ref=sr_1_1?s=wireless&ie=UTF8&qid=1516112233&sr=1-1&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999",
+                   "https://www.amazon.com/Samsung-Galaxy-64GB-Unlocked-Phone/dp/B06Y137TLR/ref=sr_1_2?s=wireless&ie=UTF8&qid=1516112233&sr=1-2&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999",
+                   "https://www.amazon.com/Samsung-Unlocked-Certified-Refurbished-Midnight/dp/B0764J52SG/ref=sr_1_4?s=wireless&ie=UTF8&qid=1516112233&sr=1-4&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999",
+                   "https://www.amazon.com/Samsung-Galaxy-64GB-Unlocked-Phone/dp/B06Y15G61T/ref=sr_1_6?s=wireless&ie=UTF8&qid=1516112233&sr=1-6&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999",
+                   "https://www.amazon.com/Samsung-Galaxy-64GB-Unlocked-Phone/dp/B06Y1652H5/ref=sr_1_8?s=wireless&ie=UTF8&qid=1516112233&sr=1-8&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999",
+                   "https://www.amazon.com/Samsung-Galaxy-SM-G955U-Midnight-Black/dp/B071V2VNNS/ref=sr_1_9?s=wireless&ie=UTF8&qid=1516112233&sr=1-9&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999",
+                   "https://www.amazon.com/Samsung-SM-G955FD-6-2-Inch-FACTORY-UNLOCKED/dp/B071H9KKKF/ref=sr_1_10?s=wireless&ie=UTF8&qid=1516112233&sr=1-10&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999",
+                   "https://www.amazon.com/Samsung-MIDNIGHT-Unlocked-International-Warranty/dp/B072BB91HG/ref=sr_1_11?s=wireless&ie=UTF8&qid=1516112233&sr=1-11&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999",
+                   "https://www.amazon.com/Samsung-Galaxy-64GB-Unlocked-Phone/dp/B06XZRMCS7/ref=sr_1_12?s=wireless&ie=UTF8&qid=1516112233&sr=1-12&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999",
+                   "https://www.amazon.com/Samsung-Galaxy-64GB-Verizon-Wireless/dp/B06Y3HCFZT/ref=sr_1_13?s=wireless&ie=UTF8&qid=1516112233&sr=1-13&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999",
+                   "https://www.amazon.com/Samsung-Galaxy-SM-G950FD-MAPLE-Unlocked/dp/B0716CN1LM/ref=sr_1_14?s=wireless&ie=UTF8&qid=1516112233&sr=1-14&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999",
+                   "https://www.amazon.com/Samsung-Galaxy-64GB-Unlocked-Phone/dp/B06Y15D6RP/ref=sr_1_15?s=wireless&ie=UTF8&qid=1516112233&sr=1-15&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999",
+                   "https://www.amazon.com/Samsung-Galaxy-64GB-Verizon-Wireless/dp/B06Y3GYZKW/ref=sr_1_17?s=wireless&ie=UTF8&qid=1516112233&sr=1-17&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999",
+                   "https://www.amazon.com/Samsung-Galaxy-Single-Unlocked-Phone/dp/B06Y15KSBB/ref=sr_1_18?s=wireless&ie=UTF8&qid=1516112233&sr=1-18&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999",
+                   "https://www.amazon.com/Samsung-SM-G955FD-FACTORY-UNLOCKED-International/dp/B071V97KRS/ref=sr_1_21?s=wireless&ie=UTF8&qid=1516112233&sr=1-21&keywords=samsung+galaxy+s8&refinements=p_36%3A30000-99999999")
 ```
 
 ## Scraping function
@@ -196,28 +220,22 @@ retrieveReviews <- function(url, delay = 2)
     else
       {
       numPage <- maxPageAmazon(prod_code, region)
-      if(numPage == -1)
+      
+      for(page_num in 1:numPage)
         {
-        # There are no reviews
-        } 
-      else
-        {
-        for(page_num in 1:numPage)
+      
+        url <- paste0("http://www.amazon.", region, "/product-reviews/", prod_code, "/?pageNumber=", page_num)
+        doc <- read_html(url)
+  
+        reviews <- amazonScraper(doc, reviewer = F, delay)
+      
+        if(numPage == 1)
           {
-        
-          url <- paste0("http://www.amazon.", region, "/product-reviews/", prod_code, "/?pageNumber=", page_num)
-          doc <- read_html(url)
-    
-          reviews <- amazonScraper(doc, reviewer = F, delay)
-        
-          if(numPage == 1)
-            {
-              reviews_all <- cbind(prod, reviews)
-            }
-          else
-            {
-              reviews_all <- rbind(reviews_all, cbind(prod, reviews))
-            }
+            reviews_all <- cbind(prod, reviews)
+          }
+        else
+          {
+            reviews_all <- rbind(reviews_all, cbind(prod, reviews))
           }
         }
       }
@@ -226,21 +244,43 @@ retrieveReviews <- function(url, delay = 2)
   }
 ```
 
-# Start scraping
-Output is a dataframe with all reviews and metrics included on the website
+
+## We need to combine the scraps from the list of urls into one dataframe
 ```{r}
-# This example has only 1 page of reviews
-url <- "https://www.amazon.fr/Apple-iPhone-Smartphone-d%C3%A9bloqu%C3%A9-Ecran/dp/B075LYDD7Z/ref=sr_1_2?s=electronics&ie=UTF8&qid=1516045160&sr=1-2&keywords=iphone"
+amazonMagic <- function(urlList, delay = 2){
+  numUrls <- length(urlList)
+  
+  output <- NULL
+  for(i in 1:numUrls){
+    url <- urlList[i]
+    reviews <- retrieveReviews(url, delay)
+    output <- rbind(output, reviews)
+  }
+  output
+}
+```
 
-# This example has no reviews
-#url <- "https://www.amazon.fr/Panpan-Protection-Anti-rayures-Ultra-claire-Transparent/dp/B0779Q1FKS/ref=sr_1_25_sspa?s=electronics&ie=UTF8&qid=1516043375&sr=1-25-spons&keywords=iphone+x&psc=1"
+## Start scrapping
+### iPhoneX
+```{r}
+iPhoneX <- amazonMagic(urlsiPhoneX)
+```
 
-# This example has multiple pages of reviews
-#url <- "https://www.amazon.fr/Ubegood-Anti-rayures-Absorption-Protection-Transparent/dp/B075FJWJYM/ref=sr_1_3?s=electronics&ie=UTF8&qid=1516049756&sr=1-3&keywords=iphone+x"
+### iPhone8
+```{r}
+iPhone8 <- amazonMagic(urlsiPhone8)
+```
 
-test <- NULL
-test <- retrieveReviews(url)
-#View(test)
+### Samsung Galaxy S8
+```{r}
+samsungS8 <- amazonMagic(urlsSamsungG8)
+```
+
+## Export to CSV
+```{r}
+write.csv(iPhoneX, file = "AmazoniPhoneX.csv")
+write.csv(iPhone8, file = "AmazoniPhone8.csv")
+write.csv(samsungS8, file = "AmazonSamsungS8.csv")
 ```
 
 
