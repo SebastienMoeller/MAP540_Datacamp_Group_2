@@ -5,8 +5,6 @@ date: "08/01/2018"
 output: html_document
 ---
 
-### Hey guys, this is Cyprien, just testing 
-
 # MAP540 Datacamp Project: Group 2
 ## Dependencies
 ```{r}
