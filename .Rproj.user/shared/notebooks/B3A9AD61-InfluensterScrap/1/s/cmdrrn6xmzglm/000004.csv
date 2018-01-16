@@ -1,0 +1,6 @@
+"0","write.table(df2, file = 'test.csv', row.names=FALSE,col.names=FALSE)
+"
+"2","cannot open file 'test.csv': Permission denied"
+"2","Error in file(file, ifelse(append, ""a"", ""w"")) : 
+  cannot open the connection
+"
