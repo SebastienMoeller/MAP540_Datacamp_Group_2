@@ -174,17 +174,16 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud3JpdGUudGFibGUoZGYyLCBmaWxlID0gJ3Rlc3QuY3N2Jywgcm93Lm5hbWVzPUZBTFNFLGNvbC5uYW1lcz1GQUxTRSlcblxuYGBgIn0= -->
-<pre class="r"><code>write.table(df2, file = 'test.csv', row.names=FALSE,col.names=FALSE)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZmIDwtIHJlbmFtZShkZmYsIFwidGV4dFwiID0gXCJjb21tZW50c1wiKVxuXG5gYGAifQ== -->
+<pre class="r"><code>dff &lt;- rename(dff, &quot;text&quot; = &quot;comments&quot;)
 </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiY2Fubm90IG9wZW4gZmlsZSAndGVzdC5jc3YnOiBQZXJtaXNzaW9uIGRlbmllZEVycm9yIGluIGZpbGUoZmlsZSwgaWZlbHNlKGFwcGVuZCwgXCJhXCIsIFwid1wiKSkgOiBcbiAgY2Fubm90IG9wZW4gdGhlIGNvbm5lY3Rpb25cbiJ9 -->
-<pre><code>cannot open file 'test.csv': Permission deniedError in file(file, ifelse(append, &quot;a&quot;, &quot;w&quot;)) : 
-  cannot open the connection</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IGBjb21tZW50c2AgY29udGFpbnMgdW5rbm93biB2YXJpYWJsZXNcbiJ9 -->
+<pre><code>Error: `comments` contains unknown variables</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkluZmx1ZW5zdGVyIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KYGBge3J9DQoNCmRmIDwtIHJlYWQuY3N2KCJydW5fcmVzdWx0cy5jc3YiKQ0KZGYyIDwtIGRmWzFdDQp3cml0ZS50YWJsZShkZjIsIGZpbGUgPSAnSW5mbHVlbmNzdGVyRmlyc3RTaG90LmNzdicsIHJvdy5uYW1lcz1GQUxTRSxjb2wubmFtZXM9RkFMU0UpDQpgYGANCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkluZmx1ZW5zdGVyIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KYGBge3J9DQpsaWJyYXJ5KGRwbHlyKQ0KDQpgYGANCg==</div>
 
 
 

@@ -4,8 +4,6 @@ output: html_notebook
 ---
 
 ```{r}
+library(dplyr)
 
-df <- read.csv("run_results.csv")
-df2 <- df[1]
-write.table(df2, file = 'InfluencsterFirstShot.csv', row.names=FALSE,col.names=FALSE)
 ```
