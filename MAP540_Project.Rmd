@@ -285,6 +285,14 @@ write.csv(samsungS8, file = "AmazonSamsungS8.csv")
 
 
 
+## Sending data [Source Comment]
+```{r}
+all <- rbind(iPhoneX, iPhone8, samsungS8)
+send <- cbind("Amazon", all["comments"])
+write.csv(send, file = "group2.csv")
+```
+
+
 
 
 
@@ -292,23 +300,23 @@ write.csv(samsungS8, file = "AmazonSamsungS8.csv")
 
 # Sentiment analysis
 ```{r}
-sent_agg <- with(test, sentiment_by(comments))
+sent_agg <- with(iPhoneX, sentiment_by(comments))
 head(sent_agg)
 ```
 
 ```{r}
 par(mfrow=c(1,2))
-with(test, hist(stars))
+with(iPhoneX, hist(stars))
 with(sent_agg, hist(ave_sentiment))
 ```
 
 ```{r}
-worst_reviews <- slice(test, top_n(sent_agg, 10, -ave_sentiment)$element_id)
+worst_reviews <- slice(iPhoneX, top_n(sent_agg, 20, -ave_sentiment)$element_id)
 with(worst_reviews, sentiment_by(comments)) %>% highlight()
 ```
 
 ```{r}
-best_reviews <- slice(test, top_n(sent_agg, 10, ave_sentiment)$element_id)
+best_reviews <- slice(iPhoneX, top_n(sent_agg, 20, ave_sentiment)$element_id)
 with(best_reviews, sentiment_by(comments)) %>% highlight()
 ```
 
