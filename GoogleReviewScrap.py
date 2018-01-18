@@ -14,17 +14,26 @@ url = 'https://www.google.com/shopping/product/5933462846166885821/reviews?outpu
 page2 = urll.urlopen(url)
 soup2 = BeautifulSoup(page2, 'html.parser')
 #%%
+# scrap reviews
 scrap = soup2.find_all('div', attrs={'class':'review-content'})
-
+#%%
+# Save reviews in a list
 reviews = []
-
 loop = 1
 for i in scrap:
-    reviews.append(i.text)
+    meta = []
+    meta.append(i.text)
+    reviews.append(meta)
 #%%
-
+# Scrap the star rating
+    
 #%%
-
+# Scrap star rating and add to data structure
+for i in reviews:
+    i.append('rating')
+#%%
+# Retrieve rating
+reviews[0][1]
 #%%
 
 #%%
