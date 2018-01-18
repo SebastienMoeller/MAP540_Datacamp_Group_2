@@ -44,9 +44,39 @@ def googlePageScrap(url):
         output.append(meta)
     
     return output
-#%%
+
+def googleMaxPage(url):
+    page = urll.urlopen(url)
+    soup = BeautifulSoup(page, 'html.parser')
+    maxPage = soup.find('span', attrs={'class':'pag-n-to-n-txt'})
+    maxPage = maxPage.text
+    maxPage = maxPage[-5:]
+    maxPage = maxPage.replace('\xa0','')
+    # This returns the total number of reviews
+    maxPage = int(maxPage)
+    # There are 10 reviews per page
+    maxPage = int(maxPage/10)-1
+    
+    return maxPage
+
 def googleScrap(url):
-    return None
+    output = []
+    maxPage = googleMaxPage(url)
+    
+    for i in range(maxPage):
+        urlPage = str(url + ',rstart:'+ str(i) +'0')
+        review = googlePageScrap(urlPage)
+        output.append(review)
+
+    return output    
+#%%
+url = 'https://www.google.com/shopping/product/5933462846166885821/reviews?output=search&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraX_rF40LQy2-BzkgE8wgr55aIFvSNoLYTvzWp6ulZKN4SpoI7JqPpChbztn5oHhXayw0IKumMhPjVOPJAvphyMoDnPXS1BcAGxwJNxOu6YHRwRxy_hxIZAFPVH71vJWF51zJw3MuI7eIHMGOCaLxvHA,rsort:1'
+data = googleScrap(url)
+#%%
+
+
+
+
 #%%
 # Scraping the number reviews to know the total number of pages to scrap
 url = 'https://www.google.com/shopping/product/5933462846166885821/reviews?output=search&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraX_rF40LQy2-BzkgE8wgr55aIFvSNoLYTvzWp6ulZKN4SpoI7JqPpChbztn5oHhXayw0IKumMhPjVOPJAvphyMoDnPXS1BcAGxwJNxOu6YHRwRxy_hxIZAFPVH71vJWF51zJw3MuI7eIHMGOCaLxvHA,rsort:1'
