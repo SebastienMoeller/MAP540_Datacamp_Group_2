@@ -9,59 +9,64 @@ Created on Thu Jan 18 13:25:20 2018
 #%%
 import urllib.request as urll
 from bs4 import BeautifulSoup
+
+def googlePageScrap(url):
+    # Initializing BeautifulSoup
+    page = urll.urlopen(url)
+    soup = BeautifulSoup(page, 'html.parser')
+    
+    # Saving the nodes containing the reviews and ratings
+    rev = soup.find_all('div', attrs={'class':'review-content'})
+    rat = soup.find_all('div', attrs={'class':'_OBj'})
+    
+    # Ratings need to be extracted from the soup
+    rating = []
+    for i in range(len(rat)):
+        # Convert to string otherwise .find() doesn't work
+        rat[i] = str(rat[i])
+        # Finding the index of the rating
+        idx = rat[i].find('aria-label="')+len('aria-label="')
+        # Save the rating in the rating list
+        rating.append(int(rat[i][idx]))
+    
+    # The first entry is the average rating between all, therefore we delete it
+    rating = rating[1:]
+    
+    # Building the output
+    output = []
+    for i in range(len(rev)):
+        # Building meta data
+        meta = []
+        meta.append(rating[i])
+        # Reviews can use the function .text to extract the actual reviews
+        meta.append(rev[i].text)
+        # Save meta data with the comment ( Rating + Review )
+        output.append(meta)
+    
+    return output
 #%%
 url = 'https://www.google.com/shopping/product/5933462846166885821/reviews?output=search&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraX_rF40LQy2-BzkgE8wgr55aIFvSNoLYTvzWp6ulZKN4SpoI7JqPpChbztn5oHhXayw0IKumMhPjVOPJAvphyMoDnPXS1BcAGxwJNxOu6YHRwRxy_hxIZAFPVH71vJWF51zJw3MuI7eIHMGOCaLxvHA&sa=X&ved=0ahUKEwia_pa7zuHYAhUDbFAKHeWAAdEQqSQIqwE'
-page = urll.urlopen(url)
-soup = BeautifulSoup(page, 'html.parser')
-#%%
-# scrap reviews
-scrap = soup.find_all('div', attrs={'class':'review-content'})
-print(scrap)
-#%%
-# Save reviews in a list
-reviews = []
-loop = 1
-for i in scrap:
-    meta = []
-    meta.append(i.text)
-    reviews.append(meta)
+data = googlePageScrap(url)
 #%%
 
-
-
-
-
-#%%
-# Scrap the star rating with noise
-url = 'https://www.google.com/shopping/product/5933462846166885821/reviews?output=search&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraX_rF40LQy2-BzkgE8wgr55aIFvSNoLYTvzWp6ulZKN4SpoI7JqPpChbztn5oHhXayw0IKumMhPjVOPJAvphyMoDnPXS1BcAGxwJNxOu6YHRwRxy_hxIZAFPVH71vJWF51zJw3MuI7eIHMGOCaLxvHA&sa=X&ved=0ahUKEwia_pa7zuHYAhUDbFAKHeWAAdEQqSQIqwE'
-page = urll.urlopen(url)
-soup = BeautifulSoup(page, 'html.parser')
-scrap = soup.find_all('div', attrs={'class':'_OBj'})
-
-test = []
-for i in scrap:
-    test.append(str(i))
-#%% Extract the rating
-rating = []
-for i in test:
-    idx = i.find('aria-label="')+len('aria-label="')
-    rating.append(int(i[idx]))
-
-rating = rating[1:]
 #%%
 
+#%%
 
-    
 #%%
-    
-# Add star rating to data structure
-idx = 0
-for i in reviews:
-    i.append(rating[idx])
-    idx = idx + 1
+
 #%%
-# Retrieve rating
-reviews[0][1]
+
+#%%
+
+#%%
+
+#%%
+
+#%%
+
+#%%
+
 #%%
 
 #%%
