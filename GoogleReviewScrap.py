@@ -45,11 +45,25 @@ def googlePageScrap(url):
     
     return output
 #%%
-url = 'https://www.google.com/shopping/product/5933462846166885821/reviews?output=search&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraX_rF40LQy2-BzkgE8wgr55aIFvSNoLYTvzWp6ulZKN4SpoI7JqPpChbztn5oHhXayw0IKumMhPjVOPJAvphyMoDnPXS1BcAGxwJNxOu6YHRwRxy_hxIZAFPVH71vJWF51zJw3MuI7eIHMGOCaLxvHA&sa=X&ved=0ahUKEwia_pa7zuHYAhUDbFAKHeWAAdEQqSQIqwE'
-data = googlePageScrap(url)
+def googleScrap(url):
+    return None
 #%%
+# Scraping the number reviews to know the total number of pages to scrap
+url = 'https://www.google.com/shopping/product/5933462846166885821/reviews?output=search&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraX_rF40LQy2-BzkgE8wgr55aIFvSNoLYTvzWp6ulZKN4SpoI7JqPpChbztn5oHhXayw0IKumMhPjVOPJAvphyMoDnPXS1BcAGxwJNxOu6YHRwRxy_hxIZAFPVH71vJWF51zJw3MuI7eIHMGOCaLxvHA,rsort:1'
+page = urll.urlopen(url)
+soup = BeautifulSoup(page, 'html.parser')
+test = soup.find('span', attrs={'class':'pag-n-to-n-txt'})
+test = test.text
+test = test[-5:]
+test = test.replace('\xa0','')
+test = int(test)
 
 #%%
+url = 'https://www.google.com/shopping/product/5933462846166885821/reviews?output=search&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraX_rF40LQy2-BzkgE8wgr55aIFvSNoLYTvzWp6ulZKN4SpoI7JqPpChbztn5oHhXayw0IKumMhPjVOPJAvphyMoDnPXS1BcAGxwJNxOu6YHRwRxy_hxIZAFPVH71vJWF51zJw3MuI7eIHMGOCaLxvHA,rsort:1'
+data = googlePageScrap(url)
+#%%
+url = 'https://www.google.com/shopping/product/5933462846166885821/reviews?output=search&q=iphone%20x&oq=iphone%20x&prds=paur:ClkAsKraX_rF40LQy2-BzkgE8wgr55aIFvSNoLYTvzWp6ulZKN4SpoI7JqPpChbztn5oHhXayw0IKumMhPjVOPJAvphyMoDnPXS1BcAGxwJNxOu6YHRwRxy_hxIZAFPVH71vJWF51zJw3MuI7eIHMGOCaLxvHA,rsort:1,rstart:10'
+data2 = googlePageScrap(url)
 
 #%%
 
