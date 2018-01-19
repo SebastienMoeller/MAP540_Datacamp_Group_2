@@ -9,6 +9,7 @@ Created on Thu Jan 18 13:25:20 2018
 #%%
 import urllib.request as urll
 from bs4 import BeautifulSoup
+import re
 
 def googlePageScrap(url):
     # Initializing BeautifulSoup
@@ -49,9 +50,7 @@ def googleMaxPage(url):
     page = urll.urlopen(url)
     soup = BeautifulSoup(page, 'html.parser')
     maxPage = soup.find('span', attrs={'class':'pag-n-to-n-txt'})
-    maxPage = maxPage.text
-    maxPage = maxPage[-5:]
-    maxPage = maxPage.replace('\xa0','')
+    maxPage = re.sub('[^0-9]','', maxPage.text[-5:])
     # This returns the total number of reviews
     maxPage = int(maxPage)
     # There are 10 reviews per page
@@ -60,13 +59,14 @@ def googleMaxPage(url):
     return maxPage
 
 def googleScrap(url):
-    output = []
+    
     maxPage = googleMaxPage(url)
+    output = googlePageScrap(url)
     
     for i in range(maxPage):
-        urlPage = str(url + ',rstart:'+ str(i) +'0')
-        review = googlePageScrap(urlPage)
-        output.append(review)
+        urlPage = str(url + ',rstart:'+ str(i+1) +'0')
+        new = googlePageScrap(urlPage)
+        output = output + new
 
     return output    
 #%%
@@ -78,22 +78,8 @@ data = googleScrap(url)
 
 
 #%%
-# Scraping the number reviews to know the total number of pages to scrap
-url = 'https://www.google.com/shopping/product/5933462846166885821/reviews?output=search&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraX_rF40LQy2-BzkgE8wgr55aIFvSNoLYTvzWp6ulZKN4SpoI7JqPpChbztn5oHhXayw0IKumMhPjVOPJAvphyMoDnPXS1BcAGxwJNxOu6YHRwRxy_hxIZAFPVH71vJWF51zJw3MuI7eIHMGOCaLxvHA,rsort:1'
-page = urll.urlopen(url)
-soup = BeautifulSoup(page, 'html.parser')
-test = soup.find('span', attrs={'class':'pag-n-to-n-txt'})
-test = test.text
-test = test[-5:]
-test = test.replace('\xa0','')
-test = int(test)
 
 #%%
-url = 'https://www.google.com/shopping/product/5933462846166885821/reviews?output=search&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraX_rF40LQy2-BzkgE8wgr55aIFvSNoLYTvzWp6ulZKN4SpoI7JqPpChbztn5oHhXayw0IKumMhPjVOPJAvphyMoDnPXS1BcAGxwJNxOu6YHRwRxy_hxIZAFPVH71vJWF51zJw3MuI7eIHMGOCaLxvHA,rsort:1'
-data = googlePageScrap(url)
-#%%
-url = 'https://www.google.com/shopping/product/5933462846166885821/reviews?output=search&q=iphone%20x&oq=iphone%20x&prds=paur:ClkAsKraX_rF40LQy2-BzkgE8wgr55aIFvSNoLYTvzWp6ulZKN4SpoI7JqPpChbztn5oHhXayw0IKumMhPjVOPJAvphyMoDnPXS1BcAGxwJNxOu6YHRwRxy_hxIZAFPVH71vJWF51zJw3MuI7eIHMGOCaLxvHA,rsort:1,rstart:10'
-data2 = googlePageScrap(url)
 
 #%%
 
