@@ -102,7 +102,9 @@ samsungS8 = googleScrap(url)
 
 #%% Export data to csv
 iPhoneX.to_csv('GoogleiPhoneX.csv')
+#%%
 iPhone8.to_csv('GoogleiPhone8.csv')
+#%%
 samsungS8.to_csv('GoogleSamsungS8.csv')
 #%%
 
@@ -113,10 +115,6 @@ samsungS8.to_csv('GoogleSamsungS8.csv')
 #%%
 
 #%%
-
-
-
-
 
 
 
