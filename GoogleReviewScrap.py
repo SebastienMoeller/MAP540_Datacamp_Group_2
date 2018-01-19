@@ -10,6 +10,7 @@ Created on Thu Jan 18 13:25:20 2018
 import urllib.request as urll
 from bs4 import BeautifulSoup
 import re
+import pandas as pd
 
 def googlePageScrap(url):
     # Initializing BeautifulSoup
@@ -67,66 +68,40 @@ def googleScrap(url):
         urlPage = str(url + ',rstart:'+ str(i+1) +'0')
         new = googlePageScrap(urlPage)
         output = output + new
+    
+    output_df = pd.DataFrame(output)
+    output_df.columns = ['stars', 'comments']
 
-    return output    
+    return output_df    
 #%%
+
+
+
+
+
+#%% Scrap the data
 url = 'https://www.google.com/shopping/product/5933462846166885821/reviews?output=search&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraX_rF40LQy2-BzkgE8wgr55aIFvSNoLYTvzWp6ulZKN4SpoI7JqPpChbztn5oHhXayw0IKumMhPjVOPJAvphyMoDnPXS1BcAGxwJNxOu6YHRwRxy_hxIZAFPVH71vJWF51zJw3MuI7eIHMGOCaLxvHA,rsort:1'
-data = googleScrap(url)
+iPhoneX = googleScrap(url)
+#%%
+url = 'https://www.google.com/shopping/product/15759308961534611032/reviews?newwindow=1&q=iphone+8&oq=iphone+8&prds=paur:ClkAsKraX1KyZbb72-_nOauyJ6tLxfYSpRr11Qd82QzPDzWCGdDhySawrVvlfUwE361hwlKO6m2_UM3ZtvT0PZX01Rnh2VSOukPheljUtLai0H60NM31aPbTpxIZAFPVH71cIy-DnJuBCRz3iNUXJsDhFf4Veg,rsort:1'
+iPhone8Plus = googleScrap(url)
+#%%
+url = 'https://www.google.com/shopping/product/5683373131666675199/reviews?newwindow=1&q=samsung+galaxy+s8&oq=samsung+g&prds=paur:ClkAsKraX-qS4Yu6pMv3Uu2hhUR8yvGlxoy8OKgyMpEZY5CwQIjsU21Q7fX_RoPUB1CRK-u6sfMWemxcnbrnjQciLpfPBklvcIbWCNi-nOgQQaz6DWxL09jV5hIZAFPVH71iXF5HAM4_3oWDT_y1BYhBqRWlCg,rsort:1'
+samsungS8 = googleScrap(url)
 #%%
 
 
 
 
+
+#%% Export data to csv
+iPhoneX.to_csv('GoogleiPhoneX.csv')
+iPhone8Plus.to_csv('GoogleiPhone8Plus.csv')
+samsungS8.to_csv('GoogleSamsungS8.csv')
 #%%
 
-#%%
 
-#%%
 
-#%%
 
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
-
-#%%
 
 #%%
