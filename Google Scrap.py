@@ -12,6 +12,7 @@ from bs4 import BeautifulSoup
 import re
 import pandas as pd
 
+# Scraps the reviews from one page, both the star ratings and comments
 def googlePageScrap(url):
     # Initializing BeautifulSoup
     page = urll.urlopen(url)
@@ -41,17 +42,18 @@ def googlePageScrap(url):
         meta = []
         meta.append(rating[i])
         # Reviews can use the function .text to extract the actual reviews
-        meta.append(rev[i].text)
+        meta.append(rev[i].text[1:-20])
         # Save meta data with the comment ( Rating + Review )
         output.append(meta)
     
     return output
 
+# Returns the number of pages of reviews that need to be visited
 def googleMaxPage(url):
     page = urll.urlopen(url)
     soup = BeautifulSoup(page, 'html.parser')
     maxPage = soup.find('span', attrs={'class':'pag-n-to-n-txt'})
-    maxPage = re.sub('[^0-9]','', maxPage.text[-5:])
+    maxPage = re.sub('[^0-9]','', maxPage.text[-6:])
     # This returns the total number of reviews
     maxPage = int(maxPage)
     # There are 10 reviews per page
@@ -59,16 +61,20 @@ def googleMaxPage(url):
     
     return maxPage
 
+# Scraps all reviews starting from page 1 as the input url
 def googleScrap(url):
     
     maxPage = googleMaxPage(url)
     output = googlePageScrap(url)
     
+    # Go to each page of reviews and add them to the output list
     for i in range(maxPage):
         urlPage = str(url + ',rstart:'+ str(i+1) +'0')
         new = googlePageScrap(urlPage)
         output = output + new
+        print(i+1,' / ',maxPage)
     
+    # Convert the list into a pandas dataframe
     output_df = pd.DataFrame(output)
     output_df.columns = ['stars', 'comments']
 
@@ -80,13 +86,13 @@ def googleScrap(url):
 
 
 #%% Scrap the data
-url = 'https://www.google.com/shopping/product/5933462846166885821/reviews?output=search&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraX_rF40LQy2-BzkgE8wgr55aIFvSNoLYTvzWp6ulZKN4SpoI7JqPpChbztn5oHhXayw0IKumMhPjVOPJAvphyMoDnPXS1BcAGxwJNxOu6YHRwRxy_hxIZAFPVH71vJWF51zJw3MuI7eIHMGOCaLxvHA,rsort:1'
+url = 'https://www.google.com/shopping/product/8330308525491645368/reviews?output=search&q=apple+iphone+8&prds=paur:ClkAsKraX0HAK8DTxuQ7a_QLy1VVmmdGjqus04Pco-mYuwDAnhwY-2yRVwjDEGi_xEsNVx11gFrfhnTT-NU5F1Cv8xkFN2t2KRFYe2S0bJHgJvnYxGmE7Xr8KxIZAFPVH73QWHZfxejgLJJNz1emAuExXPnAxg,rsort:1'
+iPhone8 = googleScrap(url)
+#%%
+url = 'https://www.google.com/shopping/product/5196767965601398683/reviews?output=search&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraX6xXlTCTDvTg5n66BfqjZtUzj5mRPstz9QYmLjncZZBAQRRtobM8Pe5XLEZX0CP8x5UxXIzT52WhOhO2moZSRoKU0aTE6QE0f-R3zq1xhh45Jvza8BIZAFPVH70FzB4_QX4D05ZaAMc8F9sjUFRwvg,rsort:1'
 iPhoneX = googleScrap(url)
 #%%
-url = 'https://www.google.com/shopping/product/15759308961534611032/reviews?newwindow=1&q=iphone+8&oq=iphone+8&prds=paur:ClkAsKraX1KyZbb72-_nOauyJ6tLxfYSpRr11Qd82QzPDzWCGdDhySawrVvlfUwE361hwlKO6m2_UM3ZtvT0PZX01Rnh2VSOukPheljUtLai0H60NM31aPbTpxIZAFPVH71cIy-DnJuBCRz3iNUXJsDhFf4Veg,rsort:1'
-iPhone8Plus = googleScrap(url)
-#%%
-url = 'https://www.google.com/shopping/product/5683373131666675199/reviews?newwindow=1&q=samsung+galaxy+s8&oq=samsung+g&prds=paur:ClkAsKraX-qS4Yu6pMv3Uu2hhUR8yvGlxoy8OKgyMpEZY5CwQIjsU21Q7fX_RoPUB1CRK-u6sfMWemxcnbrnjQciLpfPBklvcIbWCNi-nOgQQaz6DWxL09jV5hIZAFPVH71iXF5HAM4_3oWDT_y1BYhBqRWlCg,rsort:1'
+url = 'https://www.google.com/shopping/product/2874873357294577697/reviews?output=search&q=galaxy+s8&oq=galaxy+s8&prds=paur:ClkAsKraX4MdXEv-XobV-tsudUmMvrTaF0oUQFrnUCBf-gngBeSUnGe1TQzRN-qEvUxg11H4haqP6POwtI-P9rAtftKbUh-e4yFNzeeFNldak82GgWHBlGI__xIZAFPVH72dPmpO1V1eoP7Y9BbJQh6EoOBh5Q,rsort:1'
 samsungS8 = googleScrap(url)
 #%%
 
@@ -96,7 +102,7 @@ samsungS8 = googleScrap(url)
 
 #%% Export data to csv
 iPhoneX.to_csv('GoogleiPhoneX.csv')
-iPhone8Plus.to_csv('GoogleiPhone8Plus.csv')
+iPhone8.to_csv('GoogleiPhone8.csv')
 samsungS8.to_csv('GoogleSamsungS8.csv')
 #%%
 
@@ -105,3 +111,13 @@ samsungS8.to_csv('GoogleSamsungS8.csv')
 
 
 #%%
+
+#%%
+
+
+
+
+
+
+
+
