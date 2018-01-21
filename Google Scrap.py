@@ -53,7 +53,7 @@ def googleMaxPage(url):
     page = urll.urlopen(url)
     soup = BeautifulSoup(page, 'html.parser')
     maxPage = soup.find('span', attrs={'class':'pag-n-to-n-txt'})
-    maxPage = re.sub('[^0-9]','', maxPage.text[-6:])
+    maxPage = re.sub('[^0-9]','', maxPage.text[7:])
     # This returns the total number of reviews
     maxPage = int(maxPage)
     # There are 10 reviews per page
