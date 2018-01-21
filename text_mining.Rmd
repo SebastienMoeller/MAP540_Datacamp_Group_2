@@ -1,0 +1,63 @@
+---
+title: "Text mining"
+output: html_notebook
+---
+### Preliminary step: importing the data
+
+```{r}
+df_influenster <- read.csv("influenster_iphoneX.csv", sep = ",")
+
+df_influenster <- df_influenster[complete.cases(df_influenster), ]
+
+df_influenster <- as.data.frame(df_influenster)
+```
+Our dataframe is ready
+
+### First step: creating a corpus
+
+```{r}
+library(tm)
+myCorpus <- Corpus(VectorSource(df_influenster$CommentBox_Content))
+```
+
+### Second step: ponctuation filter, etc
+
+```{r}
+myCorpus <- tm_map(myCorpus, tolower)
+myCorpus <- tm_map(myCorpus, removePunctuation)
+myCorpus <- tm_map(myCorpus, removeNumbers)
+```
+
+```{r}
+toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
+
+myCorpus <- tm_map(myCorpus, toSpace, "/|@|\\|")
+myCorpus <- tm_map(myCorpus, toSpace, "\n")
+```
+
+### Third step: remove white space
+
+```{r}
+myCorpus <- tm_map(myCorpus, stripWhitespace)
+```
+
+### Forth step: remove stop words
+
+```{r}
+myCorpus <- tm_map(myCorpus, removeWords, stopwords("english"))
+```
+
+
+### Forth step: tokenize
+
+```{r}
+library(RWeka)
+
+```
+
+
+
+
+
+
+
