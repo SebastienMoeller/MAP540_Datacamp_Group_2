@@ -41,19 +41,19 @@ myCorpus <- tm_map(myCorpus, toSpace, "\n")
 myCorpus <- tm_map(myCorpus, stripWhitespace)
 ```
 
-### Forth step: remove stop words
+### Fourth step: remove stop words
 
 ```{r}
 myCorpus <- tm_map(myCorpus, removeWords, stopwords("english"))
 ```
 
 
-### Forth step: tokenize
+### Fifth step: steaming or lemmatization
 
-```{r}
-library(RWeka)
+Don't know which algorithm I should use.
+Moreover, the meaning of the word may be erased. 
 
-```
+### Sixth step: n-grams
 
 
 

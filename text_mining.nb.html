@@ -228,27 +228,23 @@ myCorpus &lt;- tm_map(myCorpus, toSpace, &quot;/|@|\\|\|&quot;)</code></pre>
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
-<div id="forth-step-remove-stop-words" class="section level3">
-<h3>Forth step: remove stop words</h3>
+<div id="fourth-step-remove-stop-words" class="section level3">
+<h3>Fourth step: remove stop words</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
-<div id="forth-step-tokenize" class="section level3">
-<h3>Forth step: tokenize</h3>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShSV2VrYSlcblxuYGBgIn0= -->
-<pre class="r"><code>library(RWeka)
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
+<div id="fifth-step-steaming-or-lemmatization" class="section level3">
+<h3>Fifth step: steaming or lemmatization</h3>
+<p>Don’t know which algorithm I should use. Moreover, the meaning of the word may be erased.</p>
+</div>
+<div id="sixth-step-n-grams" class="section level3">
+<h3>Sixth step: n-grams</h3>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlRleHQgbWluaW5nIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCiMjIyBQcmVsaW1pbmFyeSBzdGVwOiBpbXBvcnRpbmcgdGhlIGRhdGENCg0KYGBge3J9DQpkZl9pbmZsdWVuc3RlciA8LSByZWFkLmNzdigiaW5mbHVlbnN0ZXJfaXBob25lWC5jc3YiLCBzZXAgPSAiLCIpDQoNCmRmX2luZmx1ZW5zdGVyIDwtIGRmX2luZmx1ZW5zdGVyW2NvbXBsZXRlLmNhc2VzKGRmX2luZmx1ZW5zdGVyKSwgXQ0KDQpkZl9pbmZsdWVuc3RlciA8LSBhcy5kYXRhLmZyYW1lKGRmX2luZmx1ZW5zdGVyKQ0KYGBgDQpPdXIgZGF0YWZyYW1lIGlzIHJlYWR5DQoNCiMjIyBGaXJzdCBzdGVwOiBjcmVhdGluZyBhIGNvcnB1cw0KDQpgYGB7cn0NCmxpYnJhcnkodG0pDQpteUNvcnB1cyA8LSBDb3JwdXMoVmVjdG9yU291cmNlKGRmX2luZmx1ZW5zdGVyJENvbW1lbnRCb3hfQ29udGVudCkpDQpgYGANCg0KIyMjIFNlY29uZCBzdGVwOiBwb25jdHVhdGlvbiBmaWx0ZXIsIGV0Yw0KDQpgYGB7cn0NCm15Q29ycHVzIDwtIHRtX21hcChteUNvcnB1cywgdG9sb3dlcikNCm15Q29ycHVzIDwtIHRtX21hcChteUNvcnB1cywgcmVtb3ZlUHVuY3R1YXRpb24pDQpteUNvcnB1cyA8LSB0bV9tYXAobXlDb3JwdXMsIHJlbW92ZU51bWJlcnMpDQpgYGANCg0KYGBge3J9DQp0b1NwYWNlIDwtIGNvbnRlbnRfdHJhbnNmb3JtZXIoZnVuY3Rpb24oeCwgcGF0dGVybikgZ3N1YihwYXR0ZXJuLCAiICIsIHgpKQ0KDQpteUNvcnB1cyA8LSB0bV9tYXAobXlDb3JwdXMsIHRvU3BhY2UsICIvfEB8XFx8IikNCm15Q29ycHVzIDwtIHRtX21hcChteUNvcnB1cywgdG9TcGFjZSwgIlxuIikNCmBgYA0KDQojIyMgVGhpcmQgc3RlcDogcmVtb3ZlIHdoaXRlIHNwYWNlDQoNCmBgYHtyfQ0KbXlDb3JwdXMgPC0gdG1fbWFwKG15Q29ycHVzLCBzdHJpcFdoaXRlc3BhY2UpDQpgYGANCg0KIyMjIEZvcnRoIHN0ZXA6IHJlbW92ZSBzdG9wIHdvcmRzDQoNCmBgYHtyfQ0KbXlDb3JwdXMgPC0gdG1fbWFwKG15Q29ycHVzLCByZW1vdmVXb3Jkcywgc3RvcHdvcmRzKCJlbmdsaXNoIikpDQpgYGANCg0KDQojIyMgRm9ydGggc3RlcDogdG9rZW5pemUNCg0KYGBge3J9DQpsaWJyYXJ5KFJXZWthKQ0KDQpgYGANCg0KDQoNCg0KDQoNCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlRleHQgbWluaW5nIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCiMjIyBQcmVsaW1pbmFyeSBzdGVwOiBpbXBvcnRpbmcgdGhlIGRhdGENCg0KYGBge3J9DQpkZl9pbmZsdWVuc3RlciA8LSByZWFkLmNzdigiaW5mbHVlbnN0ZXJfaXBob25lWC5jc3YiLCBzZXAgPSAiLCIpDQoNCmRmX2luZmx1ZW5zdGVyIDwtIGRmX2luZmx1ZW5zdGVyW2NvbXBsZXRlLmNhc2VzKGRmX2luZmx1ZW5zdGVyKSwgXQ0KDQpkZl9pbmZsdWVuc3RlciA8LSBhcy5kYXRhLmZyYW1lKGRmX2luZmx1ZW5zdGVyKQ0KYGBgDQpPdXIgZGF0YWZyYW1lIGlzIHJlYWR5DQoNCiMjIyBGaXJzdCBzdGVwOiBjcmVhdGluZyBhIGNvcnB1cw0KDQpgYGB7cn0NCmxpYnJhcnkodG0pDQpteUNvcnB1cyA8LSBDb3JwdXMoVmVjdG9yU291cmNlKGRmX2luZmx1ZW5zdGVyJENvbW1lbnRCb3hfQ29udGVudCkpDQpgYGANCg0KIyMjIFNlY29uZCBzdGVwOiBwb25jdHVhdGlvbiBmaWx0ZXIsIGV0Yw0KDQpgYGB7cn0NCm15Q29ycHVzIDwtIHRtX21hcChteUNvcnB1cywgdG9sb3dlcikNCm15Q29ycHVzIDwtIHRtX21hcChteUNvcnB1cywgcmVtb3ZlUHVuY3R1YXRpb24pDQpteUNvcnB1cyA8LSB0bV9tYXAobXlDb3JwdXMsIHJlbW92ZU51bWJlcnMpDQpgYGANCg0KYGBge3J9DQp0b1NwYWNlIDwtIGNvbnRlbnRfdHJhbnNmb3JtZXIoZnVuY3Rpb24oeCwgcGF0dGVybikgZ3N1YihwYXR0ZXJuLCAiICIsIHgpKQ0KDQpteUNvcnB1cyA8LSB0bV9tYXAobXlDb3JwdXMsIHRvU3BhY2UsICIvfEB8XFx8IikNCm15Q29ycHVzIDwtIHRtX21hcChteUNvcnB1cywgdG9TcGFjZSwgIlxuIikNCmBgYA0KDQojIyMgVGhpcmQgc3RlcDogcmVtb3ZlIHdoaXRlIHNwYWNlDQoNCmBgYHtyfQ0KbXlDb3JwdXMgPC0gdG1fbWFwKG15Q29ycHVzLCBzdHJpcFdoaXRlc3BhY2UpDQpgYGANCg0KIyMjIEZvdXJ0aCBzdGVwOiByZW1vdmUgc3RvcCB3b3Jkcw0KDQpgYGB7cn0NCm15Q29ycHVzIDwtIHRtX21hcChteUNvcnB1cywgcmVtb3ZlV29yZHMsIHN0b3B3b3JkcygiZW5nbGlzaCIpKQ0KYGBgDQoNCg0KIyMjIEZpZnRoIHN0ZXA6IHN0ZWFtaW5nIG9yIGxlbW1hdGl6YXRpb24NCg0KRG9uJ3Qga25vdyB3aGljaCBhbGdvcml0aG0gSSBzaG91bGQgdXNlLg0KTW9yZW92ZXIsIHRoZSBtZWFuaW5nIG9mIHRoZSB3b3JkIG1heSBiZSBlcmFzZWQuIA0KDQojIyMgU2l4dGggc3RlcDogbi1ncmFtcw0KDQoNCg0KDQoNCg0KDQo=</div>
 
 
 
