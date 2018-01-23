@@ -55,7 +55,7 @@ def googleMaxPage(url):
     # This returns the total number of reviews
     maxPage = int(maxPage)
     # There are 10 reviews per page
-    maxPage = int(maxPage/10)
+    maxPage = int(maxPage/10)-1
     
     if maxPage > 100:
         maxPage = 100
@@ -76,7 +76,7 @@ def googleScrap(url, maxPage = -1):
         urlPage = str(url + ',rstart:'+ str(i+1) +'0')
         new = googlePageScrap(urlPage)
         output = output + new
-        print(i+1,' / ',maxPage)
+        print(i+2,' / ',maxPage+1)
     
     # Convert the list into a pandas dataframe
     output_df = pd.DataFrame(output)
@@ -90,32 +90,53 @@ def googleScrap(url, maxPage = -1):
 
 
 
-#%% Scrap the data
+
+
+#%% Scrap iPhoneX
 url = 'https://www.google.com/shopping/product/5196767965601398683/reviews?biw=1440&bih=780&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraXws3xeqTK3deHJMV_BI6rHFLD1-0-FLCSIFjMFmaCLo2em084jq4mwxmOrTF7J6tYIUmyeVLi-DhUVQ0Fjy8o4PX0h-_9JRFgVPmFvO1FWV0-VPotxIZAFPVH70NFTJcwTbVgp4iH_8rHEcWzD4iaA,pub:Best+Buy,rsort:1'
 iPhoneXBestBuy = googleScrap(url)
 
 url = 'https://www.google.com/shopping/product/5196767965601398683/reviews?biw=1440&bih=780&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraXws3xeqTK3deHJMV_BI6rHFLD1-0-FLCSIFjMFmaCLo2em084jq4mwxmOrTF7J6tYIUmyeVLi-DhUVQ0Fjy8o4PX0h-_9JRFgVPmFvO1FWV0-VPotxIZAFPVH70NFTJcwTbVgp4iH_8rHEcWzD4iaA,pub:att.com,rsort:1'
 iPhoneXATT = googleScrap(url, 47)
-#%%
+
 url = 'https://www.google.com/shopping/product/5196767965601398683/reviews?biw=1440&bih=780&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraXws3xeqTK3deHJMV_BI6rHFLD1-0-FLCSIFjMFmaCLo2em084jq4mwxmOrTF7J6tYIUmyeVLi-DhUVQ0Fjy8o4PX0h-_9JRFgVPmFvO1FWV0-VPotxIZAFPVH70NFTJcwTbVgp4iH_8rHEcWzD4iaA,pub:ProductReview.com.au,rsort:1'
 iPhoneXPReview = googleScrap(url, 4)
 #%%
-iPhoneX = iPhoneXBestBuy.append(iPhoneXATT, ignore_index = True)
+iPhoneX = iPhoneXBestBuy.append(iPhoneXATT, ignore_index = True).append(iPhoneXPReview, ignore_index = True)
 #%%
 
 
 
 
 
+#%% Scrap iPhone8
+url = 'https://www.google.com/shopping/product/2527512113670095639/reviews?biw=1440&bih=780&q=iphone+8&oq=iphone+8&prds=paur:ClkAsKraX1iYqFA45a1I8Lb2CHYpqvq-lseC5EVu1r36XMzGMc90uym5AnxzZ5-T7kEqBQiUsKNbFH2uQCvFKVj5hzCiSGPbHoNuDSMjeNsnjxQPsSGuAhn6WRIZAFPVH72zDOte2qPzas3yMWbOvnhzn3RUHg,pub:Best+Buy,rsort:1'
+iPhone8BestBuy = googleScrap(url)
+
+url = 'https://www.google.com/shopping/product/2527512113670095639/reviews?biw=1440&bih=780&q=iphone+8&oq=iphone+8&prds=paur:ClkAsKraX1iYqFA45a1I8Lb2CHYpqvq-lseC5EVu1r36XMzGMc90uym5AnxzZ5-T7kEqBQiUsKNbFH2uQCvFKVj5hzCiSGPbHoNuDSMjeNsnjxQPsSGuAhn6WRIZAFPVH72zDOte2qPzas3yMWbOvnhzn3RUHg,pub:att.com,rsort:1'
+iPhone8ATT = googleScrap(url)
+
+url = 'https://www.google.com/shopping/product/2527512113670095639/reviews?biw=1440&bih=780&q=iphone+8&oq=iphone+8&prds=paur:ClkAsKraX1iYqFA45a1I8Lb2CHYpqvq-lseC5EVu1r36XMzGMc90uym5AnxzZ5-T7kEqBQiUsKNbFH2uQCvFKVj5hzCiSGPbHoNuDSMjeNsnjxQPsSGuAhn6WRIZAFPVH72zDOte2qPzas3yMWbOvnhzn3RUHg,pub:vzw.com,rsort:1'
+iPhone8VZW = googleScrap(url, 3)
 #%%
-url = 'https://www.google.com/shopping/product/8330308525491645368/reviews?output=search&q=apple%20iphone%208&prds=paur:ClkAsKraXwzDjeybj3BDbmxx9Q4_-CPjIxjqC5erRRrbFWJH2y0xsPaysIZUCRXlhyMbeOkPHQF0zN-LxO80FMmOHPKuovaAld8bAIYLFrZzTYy1QaFmtQWEPhIZAFPVH72FaLxQvnUPW8ZeOWGs1FwCDCKynw,rsort:1'
-iPhone8 = googleScrap(url)
+iPhone8 = iPhone8BestBuy.append(iPhone8ATT, ignore_index = True).append(iPhone8VZW, ignore_index = True)
 #%%
-url = 'https://www.google.com/shopping/product/5196767965601398683/reviews?output=search&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraX6xXlTCTDvTg5n66BfqjZtUzj5mRPstz9QYmLjncZZBAQRRtobM8Pe5XLEZX0CP8x5UxXIzT52WhOhO2moZSRoKU0aTE6QE0f-R3zq1xhh45Jvza8BIZAFPVH70FzB4_QX4D05ZaAMc8F9sjUFRwvg,rsort:1'
-iPhoneX = googleScrap(url)
+
+
+
+
+
+#%% Scrap Samsung S8
+url= 'https://www.google.com/shopping/product/2874873357294577697/reviews?biw=1440&bih=780&output=search&q=galaxy+s8&oq=gal&prds=paur:ClkAsKraX-TlauU-GPtWQsD9gn21hudqQJu6LVfM3EroSWdCymyGQm80RnDEPkMqWFA_T7-FgYzaEPAa2-I88sQcJyE37ScXkhFuixfexe1H_y3QH11VYBgH_BIZAFPVH70HS8o9gj8YcYZIdk8G_GTZoBBn_A,pub:Best+Buy,rsort:1'
+samsungS8BestBuy = googleScrap(url)
+
+url = 'https://www.google.com/shopping/product/2874873357294577697/reviews?biw=1440&bih=780&output=search&q=galaxy+s8&oq=gal&prds=paur:ClkAsKraX-TlauU-GPtWQsD9gn21hudqQJu6LVfM3EroSWdCymyGQm80RnDEPkMqWFA_T7-FgYzaEPAa2-I88sQcJyE37ScXkhFuixfexe1H_y3QH11VYBgH_BIZAFPVH70HS8o9gj8YcYZIdk8G_GTZoBBn_A,pub:att.com,rsort:1'
+samsungS8ATT = googleScrap(url)
+
+url = 'https://www.google.com/shopping/product/2874873357294577697/reviews?biw=1440&bih=780&output=search&q=galaxy+s8&oq=gal&prds=paur:ClkAsKraX-TlauU-GPtWQsD9gn21hudqQJu6LVfM3EroSWdCymyGQm80RnDEPkMqWFA_T7-FgYzaEPAa2-I88sQcJyE37ScXkhFuixfexe1H_y3QH11VYBgH_BIZAFPVH70HS8o9gj8YcYZIdk8G_GTZoBBn_A,pub:Samsung,rsort:1'
+samsungS8Samsung = googleScrap(url)
 #%%
-url = 'https://www.google.com/shopping/product/2874873357294577697/reviews?output=search&q=galaxy+s8&oq=galaxy+s8&prds=paur:ClkAsKraX4MdXEv-XobV-tsudUmMvrTaF0oUQFrnUCBf-gngBeSUnGe1TQzRN-qEvUxg11H4haqP6POwtI-P9rAtftKbUh-e4yFNzeeFNldak82GgWHBlGI__xIZAFPVH72dPmpO1V1eoP7Y9BbJQh6EoOBh5Q,rsort:1'
-samsungS8 = googleScrap(url)
+samsungS8 = samsungS8BestBuy.append(samsungS8ATT, ignore_index = True).append(samsungS8Samsung, ignore_index = True)
 #%%
 
 
@@ -130,6 +151,6 @@ samsungS8.to_csv('GoogleSamsungS8.csv')
 
 
 
-#%%
+
 
 #%%
