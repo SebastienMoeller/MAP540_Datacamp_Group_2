@@ -57,6 +57,9 @@ def googleMaxPage(url):
     # There are 10 reviews per page
     maxPage = int(maxPage/10)-1
     
+    if maxPage > 100:
+        maxPage = 100
+    
     return maxPage
 
 # Scraps all reviews starting from page 1 as the input url
@@ -75,13 +78,17 @@ def googleScrap(url):
     # Convert the list into a pandas dataframe
     output_df = pd.DataFrame(output)
     output_df.columns = ['stars', 'comments']
+    
+    # Need to remove duplicates from shifted comments due to the computation time
+    output_df = output_df.drop_duplicates('comments')
+    
     return output_df 
 #%%
 
 
 
 #%% Scrap the data
-url = 'https://www.google.com/shopping/product/8330308525491645368/reviews?output=search&q=apple+iphone+8&prds=paur:ClkAsKraXwzDjeybj3BDbmxx9Q4_-CPjIxjqC5erRRrbFWJH2y0xsPaysIZUCRXlhyMbeOkPHQF0zN-LxO80FMmOHPKuovaAld8bAIYLFrZzTYy1QaFmtQWEPhIZAFPVH72FaLxQvnUPW8ZeOWGs1FwCDCKynw&sa=X&ved=0ahUKEwinvbGm4uvYAhWHvlMKHbEpCWsQqSQI2QE'
+url = 'https://www.google.com/shopping/product/8330308525491645368/reviews?output=search&q=apple%20iphone%208&prds=paur:ClkAsKraXwzDjeybj3BDbmxx9Q4_-CPjIxjqC5erRRrbFWJH2y0xsPaysIZUCRXlhyMbeOkPHQF0zN-LxO80FMmOHPKuovaAld8bAIYLFrZzTYy1QaFmtQWEPhIZAFPVH72FaLxQvnUPW8ZeOWGs1FwCDCKynw,rsort:1'
 iPhone8 = googleScrap(url)
 #%%
 url = 'https://www.google.com/shopping/product/5196767965601398683/reviews?output=search&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraX6xXlTCTDvTg5n66BfqjZtUzj5mRPstz9QYmLjncZZBAQRRtobM8Pe5XLEZX0CP8x5UxXIzT52WhOhO2moZSRoKU0aTE6QE0f-R3zq1xhh45Jvza8BIZAFPVH70FzB4_QX4D05ZaAMc8F9sjUFRwvg,rsort:1'
@@ -94,9 +101,9 @@ samsungS8 = googleScrap(url)
 
 
 #%% Export data to csv
-iPhoneX.to_csv('GoogleiPhoneX.csv')
-#%%
 iPhone8.to_csv('GoogleiPhone8.csv')
+#%%
+iPhoneX.to_csv('GoogleiPhoneX.csv')
 #%%
 samsungS8.to_csv('GoogleSamsungS8.csv')
 #%%
