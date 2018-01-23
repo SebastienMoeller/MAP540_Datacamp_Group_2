@@ -72,13 +72,9 @@ def nGrams(input_list, n):
 #%%
 tokens = tokenize(comments)
 #%%
-monogram = nGrams(tokens, 1)
-bigram = nGrams(tokens, 2)
-trigram = nGrams(tokens, 3)
-
-countMonogram = count(monogram)
-countBigram = count(bigram)
-countTrigram = count(trigram)
+countMonogram = count(nGrams(tokens, 1))
+countBigram = count(nGrams(tokens, 2))
+countTrigram = count(nGrams(tokens, 3))
 #%%
 countMonogram.most_common(30)
 #%%
@@ -87,20 +83,72 @@ countBigram.most_common(30)
 countTrigram.most_common(30)
 #%%
 
+
+
+
+
+#%%
+import matplotlib.pyplot as plt
+
+def gramGraph(tokens, n, name, top = 30):
+    countGram = count(nGrams(tokens, n))
+    test = countGram.most_common(top)
+    
+    labels = []
+    values = []
+    indexes = range(len(test))
+    for i in indexes:
+        labels.append(', '.join(test[i][0]))
+        values.append(test[i][1])
+    
+    fig = plt.gcf()
+    fig.set_size_inches(.7*top, 10)
+    
+    plt.bar(indexes, values, 1)
+    plt.xticks(indexes, labels, rotation = 70, ha='right')
+    plt.title(name, fontsize = 20)
+    
+    return fig
+#%%
+
+
+
+
+
+#%%
+fig = gramGraph(tokens, 1, 'Samsung S8 Top 20 Monograms', 20)
+fig.savefig('Plot Monogram S8 Top 20', bbox_inches = 'tight')
+#%%
+fig = gramGraph(tokens, 2, 'Samsung S8 Top 20 Bigrams', 20)
+fig.savefig('Plot Bigram S8 Top 20', bbox_inches = 'tight')
+#%%
+fig = gramGraph(tokens, 3, 'Samsung S8 Top 20 Trigrams', 20)
+fig.savefig('Plot Trigram S8 Top 20', bbox_inches = 'tight')
 #%%
 
 #%%
 
 #%%
 
-#%%
 
-#%%
 
-#%%
 
-#%%
 
-#%%
 
-#%%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
