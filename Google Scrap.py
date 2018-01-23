@@ -55,7 +55,7 @@ def googleMaxPage(url):
     # This returns the total number of reviews
     maxPage = int(maxPage)
     # There are 10 reviews per page
-    maxPage = int(maxPage/10)-1
+    maxPage = int(maxPage/10)
     
     if maxPage > 100:
         maxPage = 100
@@ -63,9 +63,12 @@ def googleMaxPage(url):
     return maxPage
 
 # Scraps all reviews starting from page 1 as the input url
-def googleScrap(url):
+def googleScrap(url, maxPage = -1):
     
-    maxPage = googleMaxPage(url)
+    # check if maxPage has been specified
+    if maxPage <= 0:
+        maxPage = googleMaxPage(url)
+
     output = googlePageScrap(url)
     
     # Go to each page of reviews and add them to the output list
@@ -88,6 +91,23 @@ def googleScrap(url):
 
 
 #%% Scrap the data
+url = 'https://www.google.com/shopping/product/5196767965601398683/reviews?biw=1440&bih=780&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraXws3xeqTK3deHJMV_BI6rHFLD1-0-FLCSIFjMFmaCLo2em084jq4mwxmOrTF7J6tYIUmyeVLi-DhUVQ0Fjy8o4PX0h-_9JRFgVPmFvO1FWV0-VPotxIZAFPVH70NFTJcwTbVgp4iH_8rHEcWzD4iaA,pub:Best+Buy,rsort:1'
+iPhoneXBestBuy = googleScrap(url)
+
+url = 'https://www.google.com/shopping/product/5196767965601398683/reviews?biw=1440&bih=780&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraXws3xeqTK3deHJMV_BI6rHFLD1-0-FLCSIFjMFmaCLo2em084jq4mwxmOrTF7J6tYIUmyeVLi-DhUVQ0Fjy8o4PX0h-_9JRFgVPmFvO1FWV0-VPotxIZAFPVH70NFTJcwTbVgp4iH_8rHEcWzD4iaA,pub:att.com,rsort:1'
+iPhoneXATT = googleScrap(url, 47)
+#%%
+url = 'https://www.google.com/shopping/product/5196767965601398683/reviews?biw=1440&bih=780&q=iphone+x&oq=iphone+x&prds=paur:ClkAsKraXws3xeqTK3deHJMV_BI6rHFLD1-0-FLCSIFjMFmaCLo2em084jq4mwxmOrTF7J6tYIUmyeVLi-DhUVQ0Fjy8o4PX0h-_9JRFgVPmFvO1FWV0-VPotxIZAFPVH70NFTJcwTbVgp4iH_8rHEcWzD4iaA,pub:ProductReview.com.au,rsort:1'
+iPhoneXPReview = googleScrap(url, 4)
+#%%
+iPhoneX = iPhoneXBestBuy.append(iPhoneXATT, ignore_index = True)
+#%%
+
+
+
+
+
+#%%
 url = 'https://www.google.com/shopping/product/8330308525491645368/reviews?output=search&q=apple%20iphone%208&prds=paur:ClkAsKraXwzDjeybj3BDbmxx9Q4_-CPjIxjqC5erRRrbFWJH2y0xsPaysIZUCRXlhyMbeOkPHQF0zN-LxO80FMmOHPKuovaAld8bAIYLFrZzTYy1QaFmtQWEPhIZAFPVH72FaLxQvnUPW8ZeOWGs1FwCDCKynw,rsort:1'
 iPhone8 = googleScrap(url)
 #%%
