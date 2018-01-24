@@ -33,6 +33,8 @@ toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
 
 myCorpus <- tm_map(myCorpus, toSpace, "/|@|\\|")
 myCorpus <- tm_map(myCorpus, toSpace, "\n")
+myCorpus <- tm_map(myCorpus, toSpace, "ù|š|ø|ˆ|ƒ|€|™|â|")
+
 ```
 
 ### Third step: remove white space
@@ -45,21 +47,17 @@ myCorpus <- tm_map(myCorpus, stripWhitespace)
 
 ```{r}
 myCorpus <- tm_map(myCorpus, removeWords, stopwords("english"))
+myCorpus <- tm_map(myCorpus, stripWhitespace)
 ```
 
 
-### Fifth step: steaming or lemmatization
-
-Don't know which algorithm I should use.
-Moreover, the meaning of the word may be erased. 
-
-### Sixth step: n-grams
+### Fifth step: term frequency
 
 To analyze the textual data, we use a Document-Term Matrix (DTM) representation: documents as the rows, terms/words as the columns, frequency of the term in the document as the entries. Because the number of unique words in the corpus the dimension can be large.
 ```{r}
 review_dtm <- DocumentTermMatrix(myCorpus)
 review_dtm
-inspect(review_dtm[50:55, 50:55])
+inspect(review_dtm[30:35, 30:35])
 ```
 
 To reduce the dimension of the DTM, we can emove the less frequent terms such that the sparsity is less than 0.95
@@ -67,7 +65,7 @@ To reduce the dimension of the DTM, we can emove the less frequent terms such th
 ```{r}
 review_dtm = removeSparseTerms(review_dtm, 0.99)
 review_dtm
-inspect(review_dtm[1,1:10])
+inspect(review_dtm[4,1:10])
 ```
 
 Let's draw a word cloud:
