@@ -55,8 +55,33 @@ Moreover, the meaning of the word may be erased.
 
 ### Sixth step: n-grams
 
+To analyze the textual data, we use a Document-Term Matrix (DTM) representation: documents as the rows, terms/words as the columns, frequency of the term in the document as the entries. Because the number of unique words in the corpus the dimension can be large.
+```{r}
+review_dtm <- DocumentTermMatrix(myCorpus)
+review_dtm
+inspect(review_dtm[50:55, 50:55])
+```
+
+To reduce the dimension of the DTM, we can emove the less frequent terms such that the sparsity is less than 0.95
+
+```{r}
+review_dtm = removeSparseTerms(review_dtm, 0.99)
+review_dtm
+inspect(review_dtm[1,1:10])
+```
+
+Let's draw a word cloud:
+
+```{r}
+findFreqTerms(review_dtm, lowfreq = 7)
+```
 
 
+```{r}
+library(wordcloud)
+freq = data.frame(sort(colSums(as.matrix(review_dtm)), decreasing=TRUE))
+wordcloud(rownames(freq), freq[,1], max.words=50, colors=brewer.pal(1, "Dark2"))
+```
 
 
 
