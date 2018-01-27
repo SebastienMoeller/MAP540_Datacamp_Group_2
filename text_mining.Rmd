@@ -5,11 +5,11 @@ output: html_notebook
 ### Preliminary step: importing the data
 
 ```{r}
-df_influenster <- read.csv("influenster_iphoneX.csv", sep = ",")
+df <- read.csv("group2.csv", row.names = 1)
 
-df_influenster <- df_influenster[complete.cases(df_influenster), ]
-
-df_influenster <- as.data.frame(df_influenster)
+df <- df[complete.cases(df), ]
+df <- as.data.frame(df)
+colnames(df) <- c("comment")
 ```
 Our dataframe is ready
 
@@ -17,7 +17,7 @@ Our dataframe is ready
 
 ```{r}
 library(tm)
-myCorpus <- Corpus(VectorSource(df_influenster$CommentBox_Content))
+myCorpus <- Corpus(VectorSource(df$comment))
 ```
 
 ### Second step: ponctuation filter, etc
@@ -31,8 +31,7 @@ myCorpus <- tm_map(myCorpus, removePunctuation)
 ```{r}
 toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
 
-myCorpus <- tm_map(myCorpus, toSpace, "/|@|ù|š|ø|ˆ|ƒ|€|™|â|\n|\\|")
-
+myCorpus <- tm_map(myCorpus, toSpace, "/|@|ù|š|ø|ˆ|ƒ|€|™|â|ã|\n|ð|ÿ|˜|\\|")
 ```
 
 ### Third step: remove white space
@@ -84,9 +83,7 @@ Before the TF-IDF analysis, we have to lemantize the unigrams.
 library(tm)
 library(textstem)
 for (word in dtm_unigrams$dimnames$Terms){
-  print(word)
   word <- lemmatize_words(word)
-  print(word)
 }
 ```
 
@@ -97,18 +94,17 @@ for (word in dtm_unigrams$dimnames$Terms){
 To reduce the dimension of the DTM, we can remove the less frequent terms such that the sparsity is less than 0.99
 
 ```{r}
-review_dtm = removeSparseTerms(review_dtm, 0.99)
-review_dtm
-inspect(review_dtm[4,1:10])
+dtm_unigrams = removeSparseTerms(dtm_unigrams, 0.99)
+dtm_unigrams
+inspect(dtm_unigrams[4,1:10])
 ```
 
 Let's draw a word cloud:
 
 ```{r}
 library(wordcloud)
-freq = data.frame(sort(colSums(as.matrix(review_dtm)), decreasing=TRUE))
-print(freq)
-wordcloud(rownames(freq), freq[,1], max.words=50, colors=brewer.pal(1, "Dark2"))
+freq = data.frame(sort(colSums(as.matrix(dtm_unigrams)), decreasing=TRUE))
+wordcloud(rownames(freq), freq[,1], max.words=100, colors= brewer.pal(5,"Dark2"))
 ```
 
 
