@@ -11,32 +11,30 @@ import pandas as pd
 from nltk.corpus import stopwords
 from nltk.tokenize import TweetTokenizer
 from collections import Counter as count
+
 #%% 
 # Importing all comments
-amazonSamsungS8 = pd.read_csv('AmazonSamsungS8.csv', index_col = 0)
-googleSamsungS8 = pd.read_csv('GoogleSamsungS8.csv', index_col = 0)
+data = pd.read_csv('Reviews.csv', encoding = 'ISO-8859-1', index_col = 0)
 # Convert to list for later steps
-amazonComments = amazonSamsungS8['comments'].tolist()
-googleComments = googleSamsungS8['comments'].tolist()
-#%% 
+comments = data['comments'].tolist()
+comments = comments[:-68]
+
+#%%
 # sample comment to test outputs
 #comments = ['I LOVE this phone, my Wife has one..... @wife #waddup. I\'ll be going in-to univErsiTY in 4 days. I won\'t give up until I\'ve won this phone phone phone please ~']
+
 #%% 
 # Lets only look at reviews with a rating of 3 and below
-#amazonComments = amazonSamsungS8[amazonSamsungS8['stars']<=3]['comments'].tolist()
-#googleComments = googleSamsungS8[googleSamsungS8['stars']<=3]['comments'].tolist()
-comments = amazonComments + googleComments
-#%%
-
-
-
-
+#comments = data[data['stars']<=3]['comments'].tolist()
 
 #%%
-#from nltk.corpus import stopwords
-#from nltk.tokenize import TweetTokenizer
 
-# given a list of comments, the function will return a list of tokens with -
+
+
+
+
+#%%
+# Given a list of comments, the function will return a list of tokens with -
 # special characters and english stopwords removed. This format is useful -
 # for further text analysis.
 def tokenize(my_list):
@@ -46,8 +44,19 @@ def tokenize(my_list):
     # Combine all comments into a single string
     comments = ' '.join(comments)
     # We establish a dictionary of the transformation: characters to replace with a space
-    transformation = {a:' ' for a in ['@','/','#','.','\\','!',',','(',')','{','}','[',']','-',"'",'~','’','"']}                                
+    # We also want to remove context words that don't have meaning
+    transformation = {a:' ' for a in ['@','/','#','.','\\','!',',','(',')','{','}','[',']','-','~','’','"', '*','?','+', '8', '7', '6']}                                
     comments = comments.translate(str.maketrans(transformation))
+    
+    comments = comments.replace('iphone', ' ')
+    comments = comments.replace('samsung', ' ')
+    comments = comments.replace('galaxy', ' ')
+    comments = comments.replace('apple', ' ')
+    comments = comments.replace('plus', ' ')
+    comments = comments.replace(' x ', ' ')
+    
+    comments = comments.replace('’', '')
+    comments = comments.replace("'", '')
     
     # nltk's tokenizer
     tkzer = TweetTokenizer(preserve_case = False, strip_handles = True, reduce_len = True)
@@ -63,6 +72,7 @@ def tokenize(my_list):
 # a list of neighbouring groups of size n.
 def nGrams(input_list, n):
     return list(zip(*[input_list[i:] for i in range(n)]))
+
 #%%
     
 
@@ -71,16 +81,25 @@ def nGrams(input_list, n):
 
 #%%
 tokens = tokenize(comments)
+
 #%%
 countMonogram = count(nGrams(tokens, 1))
 countBigram = count(nGrams(tokens, 2))
 countTrigram = count(nGrams(tokens, 3))
+countTetragram = count(nGrams(tokens, 4))
+
 #%%
 countMonogram.most_common(30)
+
 #%%
 countBigram.most_common(30)
+
 #%%
 countTrigram.most_common(30)
+
+#%%
+countTetragram.most_common(30)
+
 #%%
 
 
@@ -109,6 +128,7 @@ def gramGraph(tokens, n, name, top = 30):
     plt.title(name, fontsize = 20)
     
     return fig
+
 #%%
 
 
@@ -116,15 +136,19 @@ def gramGraph(tokens, n, name, top = 30):
 
 
 #%%
-fig = gramGraph(tokens, 1, 'Samsung S8 Top 20 Monograms', 20)
-fig.savefig('Plot Monogram S8 Top 20', bbox_inches = 'tight')
+fig = gramGraph(tokens, 1, 'Top 20 Monograms', 20)
+#fig.savefig('Plot Monogram S8 Top 20', bbox_inches = 'tight')
+
 #%%
-fig = gramGraph(tokens, 2, 'Samsung S8 Top 20 Bigrams', 20)
-fig.savefig('Plot Bigram S8 Top 20', bbox_inches = 'tight')
+fig = gramGraph(tokens, 2, 'Top 20 Bigrams', 20)
+#fig.savefig('Plot Bigram S8 Top 20', bbox_inches = 'tight')
+
 #%%
-fig = gramGraph(tokens, 3, 'Samsung S8 Top 20 Trigrams', 20)
-fig.savefig('Plot Trigram S8 Top 20', bbox_inches = 'tight')
+fig = gramGraph(tokens, 3, 'Top 20 Trigrams', 20)
+#fig.savefig('Plot Trigram S8 Top 20', bbox_inches = 'tight')
+
 #%%
+fig = gramGraph(tokens, 4, 'Top 20 Tetragrams', 20)
 
 #%%
 
