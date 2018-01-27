@@ -25,15 +25,13 @@ myCorpus <- Corpus(VectorSource(df_influenster$CommentBox_Content))
 ```{r}
 myCorpus <- tm_map(myCorpus, tolower)
 myCorpus <- tm_map(myCorpus, removePunctuation)
-myCorpus <- tm_map(myCorpus, removeNumbers)
+#myCorpus <- tm_map(myCorpus, removeNumbers) dangerous because we might loose the cellphone model number
 ```
 
 ```{r}
 toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
 
-myCorpus <- tm_map(myCorpus, toSpace, "/|@|\\|")
-myCorpus <- tm_map(myCorpus, toSpace, "\n")
-myCorpus <- tm_map(myCorpus, toSpace, "ù|š|ø|ˆ|ƒ|€|™|â|")
+myCorpus <- tm_map(myCorpus, toSpace, "/|@|ù|š|ø|ˆ|ƒ|€|™|â|\n|\\|")
 
 ```
 
@@ -48,6 +46,20 @@ myCorpus <- tm_map(myCorpus, stripWhitespace)
 ```{r}
 myCorpus <- tm_map(myCorpus, removeWords, stopwords("english"))
 myCorpus <- tm_map(myCorpus, stripWhitespace)
+```
+### tokenizing
+
+```{r}
+library(quanteda)
+myCorpus_1gram <- tokens(myCorpus)
+```
+
+
+### Fifth step: lemantization
+
+```{r}
+library(Rstem)
+myCorpus_lem <- wordStem(review_dtm)
 ```
 
 
