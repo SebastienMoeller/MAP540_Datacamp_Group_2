@@ -61,7 +61,7 @@ group2Meta = pd.concat([data0, data1, data2, data3, data4, data5, data6])
 
 #%%
 group2.to_csv('group2.csv')
-group2Meta.to_csv('group2Meta.csv')
+group2Meta.to_csv('Reviews.csv')
 
 #%%
 
