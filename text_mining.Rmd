@@ -47,32 +47,54 @@ myCorpus <- tm_map(myCorpus, stripWhitespace)
 myCorpus <- tm_map(myCorpus, removeWords, stopwords("english"))
 myCorpus <- tm_map(myCorpus, stripWhitespace)
 ```
-### tokenizing
 
+Let's print the first comment.
+```{r}
+myCorpus$content[1]
+```
+It looks OK. 
+
+### Sixth: tokenizing
+
+We are going to create unigrams, bigrams and trigrams.
+First try:
+```{r}
+BigramTokenizer <- function(x) unlist(lapply(ngrams(words(x), 2), paste, collapse = " "), use.names = FALSE)
+
+dtm_unigrams <- DocumentTermMatrix(myCorpus)
+inspect(dtm_unigrams[1:10, 1:10])
+
+dtm_bigrams <- DocumentTermMatrix(myCorpus, control = list(tokenize = BigramTokenizer))
+inspect(dtm_bigrams[1:10, 1:10])
+```
+The bigrams matrix is the same ... so it failed!
+
+Other try with other function:
 ```{r}
 library(quanteda)
-myCorpus_1gram <- tokens(myCorpus)
+myCorpus_1gram <- tokens(myCorpus$content)
 ```
+It does not work. Let's do the analysis for unigrams. 
 
+### Seventh step: lemantization
 
-### Fifth step: lemantization
+Before the TF-IDF analysis, we have to lemantize the unigrams.
 
 ```{r}
-library(Rstem)
-myCorpus_lem <- wordStem(review_dtm)
+library(tm)
+library(textstem)
+for (word in dtm_unigrams$dimnames$Terms){
+  print(word)
+  word <- lemmatize_words(word)
+  print(word)
+}
 ```
 
 
-### Fifth step: term frequency
+### Eighth step: term frequency
 
-To analyze the textual data, we use a Document-Term Matrix (DTM) representation: documents as the rows, terms/words as the columns, frequency of the term in the document as the entries. Because the number of unique words in the corpus the dimension can be large.
-```{r}
-review_dtm <- DocumentTermMatrix(myCorpus)
-review_dtm
-inspect(review_dtm[30:35, 30:35])
-```
 
-To reduce the dimension of the DTM, we can emove the less frequent terms such that the sparsity is less than 0.95
+To reduce the dimension of the DTM, we can remove the less frequent terms such that the sparsity is less than 0.99
 
 ```{r}
 review_dtm = removeSparseTerms(review_dtm, 0.99)
@@ -83,13 +105,9 @@ inspect(review_dtm[4,1:10])
 Let's draw a word cloud:
 
 ```{r}
-findFreqTerms(review_dtm, lowfreq = 7)
-```
-
-
-```{r}
 library(wordcloud)
 freq = data.frame(sort(colSums(as.matrix(review_dtm)), decreasing=TRUE))
+print(freq)
 wordcloud(rownames(freq), freq[,1], max.words=50, colors=brewer.pal(1, "Dark2"))
 ```
 
