@@ -112,13 +112,19 @@ tokens = tokenList(comments)
 
 #%%
 # We have a list of a list of ordered tokens that we need to find the nGrams of
-countMonogram = count(listGrams(tokens, 1)).most_common(30)
-countBigram = count(listGrams(tokens, 2)).most_common(30)
-countTrigram = count(listGrams(tokens, 3)).most_common(30)
-countTetragram = count(listGrams(tokens, 4)).most_common(30)
+countMonogram = count(listGrams(tokens, 1))
+countBigram = count(listGrams(tokens, 2))
+countTrigram = count(listGrams(tokens, 3))
+countTetragram = count(listGrams(tokens, 4))
 
-
-
+#%%
+countMonogram.most_common(30)
+#%%
+countBigram.most_common(30)
+#%%
+countTrigram.most_common(30)
+#%%
+countTetragram.most_common(30)
 #%%
 
 
@@ -129,7 +135,7 @@ countTetragram = count(listGrams(tokens, 4)).most_common(30)
 import matplotlib.pyplot as plt
 
 def gramGraph(tokens, n, name, top = 30):
-    countGram = count(nGrams(tokens, n))
+    countGram = count(listGrams(tokens, n))
     test = countGram.most_common(top)
     
     labels = []
@@ -171,9 +177,19 @@ fig = gramGraph(tokens, 4, 'Top 20 Tetragrams', 20)
 
 #%%
 
+
+
+
+
+#%%
+# Token Frequency Sparcity Matrix
+
+
 #%%
 
+#%%
 
+#%%
 
 
 
