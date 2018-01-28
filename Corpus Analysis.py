@@ -11,6 +11,7 @@ import pandas as pd
 from nltk.corpus import stopwords
 from nltk.tokenize import TweetTokenizer
 from collections import Counter as count
+from nltk.stem import WordNetLemmatizer
 
 #%% 
 # Importing all comments
@@ -59,11 +60,6 @@ def tokenize(my_list):
     
     return tokens
 
-# given a list of ordered tokens from a document, the function will return-
-# a list of neighbouring groups of size n.
-def nGrams(input_list, n):
-    return list(zip(*[input_list[i:] for i in range(n)]))
-
 #%%
     
 
@@ -77,8 +73,10 @@ def tokenList(my_list):
     comments = [item.lower() for item in my_list]
     # We establish a dictionary of the transformation: characters to replace with a space
     # We also want to remove context words that don't have meaning
-    transformation = {a:' ' for a in ['@','/','#','.','\\','!',',','(',')','{','}','[',']','-','~','’','"', '*','?','+', '8', '7', '6']}                                
+    transformation = {a:' ' for a in ['@','/','#','.','\\','!',',','(',')','{','}','[',']','-','~', '*','?','+', '8', '7', '6']}
+    transB = {b:'' for b in ['','’','"']}
     comments = [item.translate(str.maketrans(transformation)) for item in comments]
+    comments = [item.translate(str.maketrans(transB)) for item in comments]
     comments = [item.replace('iphone', ' ').replace('samsung', ' ').replace('galaxy', ' ').replace('apple', ' ').replace('plus', ' ').replace(' x ', ' ').replace('’', '').replace("'", '') for item in comments]
     
     # nltk's tokenizer
@@ -86,45 +84,40 @@ def tokenList(my_list):
     tokens = [tkzer.tokenize(item) for item in comments]
     
     tokens = []
+    wordnet_lemmatizer = WordNetLemmatizer()
     for idx in range(len(comments)):
-        tokens.append([word for word in comments[idx].split() if word not in stopwords.words('english')])
-        print(idx+1, ' / ', len(comments))
-    
+        words = ([word for word in comments[idx].split() if word not in stopwords.words('english')])
+        for idy in range(len(words)):
+            words[idy] = wordnet_lemmatizer.lemmatize(words[idy], pos = 'v')
+        
+        tokens.append(words)
+        print('Tokenizing: ',idx+1, ' / ', len(comments))
+
     return tokens
+
+# given a list of ordered tokens from a document, the function will return-
+# a list of neighbouring groups of size n.
+def nGrams(input_list, n):
+    return list(zip(*[input_list[i:] for i in range(n)]))
+
+# Returns nGrams from a corpus of tokens
+def listGrams(input_list, n):
+    output =[]
+    for idx in range(len(input_list)):
+        temp = nGrams(input_list[idx], n)
+        output = output + temp
+    return output
 #%%
-test = tokenList(comments) 
-
-#%%
-
-
-
-
-#%%
-
-
-
-
-
-#%%
-tokens = tokenize(comments)
-
-#%%
-countMonogram = count(nGrams(tokens, 1))
-countBigram = count(nGrams(tokens, 2))
-countTrigram = count(nGrams(tokens, 3))
-countTetragram = count(nGrams(tokens, 4))
+tokens = tokenList(comments)
 
 #%%
-countMonogram.most_common(30)
+# We have a list of a list of ordered tokens that we need to find the nGrams of
+countMonogram = count(listGrams(tokens, 1)).most_common(30)
+countBigram = count(listGrams(tokens, 2)).most_common(30)
+countTrigram = count(listGrams(tokens, 3)).most_common(30)
+countTetragram = count(listGrams(tokens, 4)).most_common(30)
 
-#%%
-countBigram.most_common(30)
 
-#%%
-countTrigram.most_common(30)
-
-#%%
-countTetragram.most_common(30)
 
 #%%
 
