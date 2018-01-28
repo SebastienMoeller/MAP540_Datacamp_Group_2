@@ -44,19 +44,10 @@ def tokenize(my_list):
     # Combine all comments into a single string
     comments = ' '.join(comments)
     # We establish a dictionary of the transformation: characters to replace with a space
-    # We also want to remove context words that don't have meaning
     transformation = {a:' ' for a in ['@','/','#','.','\\','!',',','(',')','{','}','[',']','-','~','’','"', '*','?','+', '8', '7', '6']}                                
     comments = comments.translate(str.maketrans(transformation))
-    
-    comments = comments.replace('iphone', ' ')
-    comments = comments.replace('samsung', ' ')
-    comments = comments.replace('galaxy', ' ')
-    comments = comments.replace('apple', ' ')
-    comments = comments.replace('plus', ' ')
-    comments = comments.replace(' x ', ' ')
-    
-    comments = comments.replace('’', '')
-    comments = comments.replace("'", '')
+    # We also want to remove context words that don't have meaning
+    comments = comments.replace('iphone', ' ').replace('samsung', ' ').replace('galaxy', ' ').replace('apple', ' ').replace('plus', ' ').replace(' x ', ' ').replace('’', '').replace("'", '')
     
     # nltk's tokenizer
     tkzer = TweetTokenizer(preserve_case = False, strip_handles = True, reduce_len = True)
@@ -88,24 +79,31 @@ def tokenList(my_list):
     # We also want to remove context words that don't have meaning
     transformation = {a:' ' for a in ['@','/','#','.','\\','!',',','(',')','{','}','[',']','-','~','’','"', '*','?','+', '8', '7', '6']}                                
     comments = [item.translate(str.maketrans(transformation)) for item in comments]
-    
     comments = [item.replace('iphone', ' ').replace('samsung', ' ').replace('galaxy', ' ').replace('apple', ' ').replace('plus', ' ').replace(' x ', ' ').replace('’', '').replace("'", '') for item in comments]
     
     # nltk's tokenizer
     tkzer = TweetTokenizer(preserve_case = False, strip_handles = True, reduce_len = True)
     tokens = [tkzer.tokenize(item) for item in comments]
-    # set of english stopwords
-    english_stopwords = set(stopwords.words('english'))
-    # Remove english stopwords
+    
     tokens = []
     for idx in range(len(comments)):
-        tokens.append(comments[idx].split())
-    
-    #tokens = [i for i in comments[0] if i not in english_stopwords]
+        tokens.append([word for word in comments[idx].split() if word not in stopwords.words('english')])
+        print(idx+1, ' / ', len(comments))
     
     return tokens
 #%%
 test = tokenList(comments) 
+
+#%%
+
+
+
+
+#%%
+
+
+
+
 
 #%%
 tokens = tokenize(comments)
