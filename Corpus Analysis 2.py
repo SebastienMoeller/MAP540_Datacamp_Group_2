@@ -95,11 +95,12 @@ def tokenList(my_list):
     return tokens
 #%%
 test = tokenList(comments)
-#all_tokens = set.union(*map(set,test))
-#all_tokens
+#%%
+all_tokens = set.union(*map(set,test))
+len(all_tokens)
 
 #%%
-from sklearn.feature_extraction.text import CountVectorizer
+#from sklearn.feature_extraction.text import CountVectorizer
 
 #%%
 countvec = CountVectorizer(test)

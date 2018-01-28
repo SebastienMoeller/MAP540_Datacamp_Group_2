@@ -12,8 +12,9 @@ from nltk.corpus import stopwords
 from nltk.tokenize import TweetTokenizer
 from collections import Counter as count
 from nltk.stem import WordNetLemmatizer
+from sklearn.feature_extraction.text import CountVectorizer
 
-#%% 
+#%%
 # Importing all comments
 data = pd.read_csv('Reviews.csv', encoding = 'ISO-8859-1', index_col = 0)
 # Convert to list for later steps
@@ -27,12 +28,6 @@ comments = comments[:-68]
 #%% 
 # Lets only look at reviews with a rating of 3 and below
 #comments = data[data['stars']<=3]['comments'].tolist()
-
-#%%
-
-
-
-
 
 #%%
 # Given a list of comments, the function will return a list of tokens with -
@@ -109,6 +104,13 @@ def listGrams(input_list, n):
     return output
 #%%
 tokens = tokenList(comments)
+#%%
+#docs = ['why hello there', 'omg hello pony', 'she went there? omg']
+
+vec = CountVectorizer()
+X = vec.fit_transform(tokens[1])
+df = pd.DataFrame(X.toarray(), columns=vec.get_feature_names())
+print(X)
 
 #%%
 # We have a list of a list of ordered tokens that we need to find the nGrams of
