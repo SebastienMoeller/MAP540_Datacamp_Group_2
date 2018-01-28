@@ -80,6 +80,34 @@ def nGrams(input_list, n):
 
 
 #%%
+def tokenList(my_list):
+    # Lowercase all characters 
+    # (like this the same word will contribute to the same token count)
+    comments = [item.lower() for item in my_list]
+    # We establish a dictionary of the transformation: characters to replace with a space
+    # We also want to remove context words that don't have meaning
+    transformation = {a:' ' for a in ['@','/','#','.','\\','!',',','(',')','{','}','[',']','-','~','’','"', '*','?','+', '8', '7', '6']}                                
+    comments = [item.translate(str.maketrans(transformation)) for item in comments]
+    
+    comments = [item.replace('iphone', ' ').replace('samsung', ' ').replace('galaxy', ' ').replace('apple', ' ').replace('plus', ' ').replace(' x ', ' ').replace('’', '').replace("'", '') for item in comments]
+    
+    # nltk's tokenizer
+    tkzer = TweetTokenizer(preserve_case = False, strip_handles = True, reduce_len = True)
+    tokens = [tkzer.tokenize(item) for item in comments]
+    # set of english stopwords
+    english_stopwords = set(stopwords.words('english'))
+    # Remove english stopwords
+    tokens = []
+    for idx in range(len(comments)):
+        tokens.append(comments[idx].split())
+    
+    #tokens = [i for i in comments[0] if i not in english_stopwords]
+    
+    return tokens
+#%%
+test = tokenList(comments) 
+
+#%%
 tokens = tokenize(comments)
 
 #%%
