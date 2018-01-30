@@ -12,9 +12,8 @@ from nltk.corpus import stopwords
 from nltk.tokenize import TweetTokenizer
 from collections import Counter as count
 from nltk.stem import WordNetLemmatizer
-from sklearn.feature_extraction.text import CountVectorizer
 
-#%%
+#%% 
 # Importing all comments
 data = pd.read_csv('Reviews.csv', encoding = 'ISO-8859-1', index_col = 0)
 # Convert to list for later steps
@@ -28,6 +27,12 @@ comments = comments[:-68]
 #%% 
 # Lets only look at reviews with a rating of 3 and below
 #comments = data[data['stars']<=3]['comments'].tolist()
+
+#%%
+
+
+
+
 
 #%%
 # Given a list of comments, the function will return a list of tokens with -
@@ -55,6 +60,11 @@ def tokenize(my_list):
     
     return tokens
 
+# given a list of ordered tokens from a document, the function will return-
+# a list of neighbouring groups of size n.
+def nGrams(input_list, n):
+    return list(zip(*[input_list[i:] for i in range(n)]))
+
 #%%
     
 
@@ -68,10 +78,8 @@ def tokenList(my_list):
     comments = [item.lower() for item in my_list]
     # We establish a dictionary of the transformation: characters to replace with a space
     # We also want to remove context words that don't have meaning
-    transformation = {a:' ' for a in ['@','/','#','.','\\','!',',','(',')','{','}','[',']','-','~', '*','?','+', '8', '7', '6']}
-    transB = {b:'' for b in ['','’','"']}
+    transformation = {a:' ' for a in ['@','/','#','.','\\','!',',','(',')','{','}','[',']','-','~','’','"', '*','?','+', '8', '7', '6']}                                
     comments = [item.translate(str.maketrans(transformation)) for item in comments]
-    comments = [item.translate(str.maketrans(transB)) for item in comments]
     comments = [item.replace('iphone', ' ').replace('samsung', ' ').replace('galaxy', ' ').replace('apple', ' ').replace('plus', ' ').replace(' x ', ' ').replace('’', '').replace("'", '') for item in comments]
     
     # nltk's tokenizer
@@ -79,54 +87,49 @@ def tokenList(my_list):
     tokens = [tkzer.tokenize(item) for item in comments]
     
     tokens = []
-    wordnet_lemmatizer = WordNetLemmatizer()
     for idx in range(len(comments)):
-        words = ([word for word in comments[idx].split() if word not in stopwords.words('english')])
-        for idy in range(len(words)):
-            words[idy] = wordnet_lemmatizer.lemmatize(words[idy], pos = 'v')
+        tokens.append([word for word in comments[idx].split() if word not in stopwords.words('english')])
+        print(idx+1, ' / ', len(comments))
         
-        tokens.append(words)
-        print('Tokenizing: ',idx+1, ' / ', len(comments))
-
+    
     return tokens
-
-# given a list of ordered tokens from a document, the function will return-
-# a list of neighbouring groups of size n.
-def nGrams(input_list, n):
-    return list(zip(*[input_list[i:] for i in range(n)]))
-
-# Returns nGrams from a corpus of tokens
-def listGrams(input_list, n):
-    output =[]
-    for idx in range(len(input_list)):
-        temp = nGrams(input_list[idx], n)
-        output = output + temp
-    return output
 #%%
-tokens = tokenList(comments)
+test = tokenList(comments)
 #%%
-#docs = ['why hello there', 'omg hello pony', 'she went there? omg']
-
-vec = CountVectorizer()
-X = vec.fit_transform(tokens[1])
-df = pd.DataFrame(X.toarray(), columns=vec.get_feature_names())
-print(X)
+all_tokens = set.union(*map(set,test))
+len(all_tokens)
 
 #%%
-# We have a list of a list of ordered tokens that we need to find the nGrams of
-countMonogram = count(listGrams(tokens, 1))
-countBigram = count(listGrams(tokens, 2))
-countTrigram = count(listGrams(tokens, 3))
-countTetragram = count(listGrams(tokens, 4))
+#from sklearn.feature_extraction.text import CountVectorizer
+
+#%%
+countvec = CountVectorizer(test)
+sparse_matrix = countvec.fit_transform(test)
+print(sparse_matrix)
+
+
+
+#%%
+
+
+#%%
+countMonogram = count(nGrams(tokens, 1))
+countBigram = count(nGrams(tokens, 2))
+countTrigram = count(nGrams(tokens, 3))
+countTetragram = count(nGrams(tokens, 4))
 
 #%%
 countMonogram.most_common(30)
+
 #%%
 countBigram.most_common(30)
+
 #%%
 countTrigram.most_common(30)
+
 #%%
 countTetragram.most_common(30)
+
 #%%
 
 
@@ -137,7 +140,7 @@ countTetragram.most_common(30)
 import matplotlib.pyplot as plt
 
 def gramGraph(tokens, n, name, top = 30):
-    countGram = count(listGrams(tokens, n))
+    countGram = count(nGrams(tokens, n))
     test = countGram.most_common(top)
     
     labels = []
@@ -179,19 +182,9 @@ fig = gramGraph(tokens, 4, 'Top 20 Tetragrams', 20)
 
 #%%
 
-
-
-
-
-#%%
-# Token Frequency Sparcity Matrix
-
-
 #%%
 
-#%%
 
-#%%
 
 
 
