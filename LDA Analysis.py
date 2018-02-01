@@ -26,11 +26,12 @@ def tokenList(my_list):
     comments = [item.lower() for item in my_list]
     # We establish a dictionary of the transformation: characters to replace with a space
     # We also want to remove context words that don't have meaning
-    transformation = {a:' ' for a in ['@','/','#','.','\\','!',',','(',')','{','}','[',']','-','~', '*','?','+', '8', '7', '6']}
+    transformation = {a:' ' for a in ['@','/','#','.','\\','!',',','(',')','{','}','[',']','-','~', '*','?','+', '8', '7', '6', ';', ':', '|']}
     transB = {b:'' for b in ['','’','"']}
     comments = [item.translate(str.maketrans(transformation)) for item in comments]
     comments = [item.translate(str.maketrans(transB)) for item in comments]
-    comments = [item.replace('iphone', ' ').replace('samsung', ' ').replace('galaxy', ' ').replace('apple', ' ').replace('plus', ' ').replace(' x ', ' ').replace('’', '').replace("'", '') for item in comments]
+    comments = [item.replace('iphone', ' ').replace('samsung', ' ').replace('galaxy', ' ').replace('apple', ' ').replace('plus', ' ').replace(
+            ' x ', ' ').replace('’', '').replace("'", '').replace('http', '').replace('https', '').replace('com', ' ') for item in comments]
     
     # nltk's tokenizer
     tkzer = TweetTokenizer(preserve_case = False, strip_handles = True, reduce_len = True)
@@ -73,14 +74,30 @@ from gensim import corpora, models
 dictionary = corpora.Dictionary(tokens)
 
 #%%
-dictionary
+print(dictionary)
+
+#%%
+# CHECKING IF IT IS POSSIBLE TO SORT THE DICTIONARY BEFORE THE NEXT STEPS
+test = []
+
+for i in range(len(dictionary)):
+    test.append(dictionary[i])
+
+test.sort()
+testDict = corpora.Dictionary(test)
+
+#%%
+# ALTERNATE APPROACH
+import operator
+sortedDictionary = sorted(dictionary.items(), key=operator.itemgetter(1))
+dictionary2 = dict(sortedDictionary)
 
 #%%
 corpus = [dictionary.doc2bow(text) for text in tokens]
 
 #%%
 # Long computation time!!!
-ldamodel = models.ldamodel.LdaModel(corpus, num_topics=3, id2word = dictionary, passes=20)
+ldamodel = models.ldamodel.LdaModel(corpus, num_topics = 5, id2word = dictionary, passes = 20)
 
 #%%
 #ldamodel1 = models.ldamodel.LdaModel(corpus, num_topics=3, id2word = dictionary, passes=1)
@@ -88,7 +105,7 @@ ldamodel = models.ldamodel.LdaModel(corpus, num_topics=3, id2word = dictionary, 
 
 #%%
 # Top 3 words associated with the 3 topics we clustered the data into
-print(ldamodel.print_topics(num_topics=3, num_words=3))
+print(ldamodel.print_topics(num_topics=5, num_words=3))
 
 #%%
 
