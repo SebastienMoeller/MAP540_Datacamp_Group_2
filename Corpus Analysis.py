@@ -30,32 +30,7 @@ comments = comments[:-68]
 #comments = data[data['stars']<=3]['comments'].tolist()
 
 #%%
-# Given a list of comments, the function will return a list of tokens with -
-# special characters and english stopwords removed. This format is useful -
-# for further text analysis.
-def tokenize(my_list):
-    # Lowercase all characters 
-    # (like this the same word will contribute to the same token count)
-    comments = [item.lower() for item in my_list]
-    # Combine all comments into a single string
-    comments = ' '.join(comments)
-    # We establish a dictionary of the transformation: characters to replace with a space
-    transformation = {a:' ' for a in ['@','/','#','.','\\','!',',','(',')','{','}','[',']','-','~','’','"', '*','?','+', '8', '7', '6']}                                
-    comments = comments.translate(str.maketrans(transformation))
-    # We also want to remove context words that don't have meaning
-    comments = comments.replace('iphone', ' ').replace('samsung', ' ').replace('galaxy', ' ').replace('apple', ' ').replace('plus', ' ').replace(' x ', ' ').replace('’', '').replace("'", '')
-    
-    # nltk's tokenizer
-    tkzer = TweetTokenizer(preserve_case = False, strip_handles = True, reduce_len = True)
-    tokens = tkzer.tokenize(comments)
-    # set of english stopwords
-    english_stopwords = set(stopwords.words('english'))
-    # Remove english stopwords
-    tokens = [i for i in tokens if i not in english_stopwords]
-    
-    return tokens
 
-#%%
     
 
 
@@ -81,11 +56,14 @@ def tokenList(my_list):
     tokens = []
     wordnet_lemmatizer = WordNetLemmatizer()
     for idx in range(len(comments)):
+        # Remove engish stopwords
         words = ([word for word in comments[idx].split() if word not in stopwords.words('english')])
         for idy in range(len(words)):
+            # Lemmatize each word
             words[idy] = wordnet_lemmatizer.lemmatize(words[idy], pos = 'v')
         
         tokens.append(words)
+        # Progress report
         print('Tokenizing: ',idx+1, ' / ', len(comments))
 
     return tokens
@@ -102,9 +80,17 @@ def listGrams(input_list, n):
         temp = nGrams(input_list[idx], n)
         output = output + temp
     return output
+
 #%%
 tokens = tokenList(comments)
+
 #%%
+
+
+
+
+
+#%%%
 #docs = ['why hello there', 'omg hello pony', 'she went there? omg']
 
 vec = CountVectorizer()
