@@ -73,11 +73,18 @@ from gensim import corpora, models
 dictionary = corpora.Dictionary(tokens)
 
 #%%
+dictionary
+
+#%%
 corpus = [dictionary.doc2bow(text) for text in tokens]
 
 #%%
 # Long computation time!!!
 ldamodel = models.ldamodel.LdaModel(corpus, num_topics=3, id2word = dictionary, passes=20)
+
+#%%
+#ldamodel1 = models.ldamodel.LdaModel(corpus, num_topics=3, id2word = dictionary, passes=1)
+
 
 #%%
 # Top 3 words associated with the 3 topics we clustered the data into
