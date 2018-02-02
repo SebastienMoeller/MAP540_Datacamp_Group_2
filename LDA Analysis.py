@@ -31,7 +31,8 @@ def tokenList(my_list):
     comments = [item.translate(str.maketrans(transformation)) for item in comments]
     comments = [item.translate(str.maketrans(transB)) for item in comments]
     comments = [item.replace('iphone', ' ').replace('samsung', ' ').replace('galaxy', ' ').replace('apple', ' ').replace('plus', ' ').replace(
-            ' x ', ' ').replace('’', '').replace("'", '').replace('http', '').replace('https', '').replace('com', ' ') for item in comments]
+            ' x ', ' ').replace('’', '').replace("'", '').replace('http', '').replace('https', '').replace('com', ' ').replace('co', ' ').replace(
+                    '201', ' ').replace('0', ' ') for item in comments]
     
     # nltk's tokenizer
     tkzer = TweetTokenizer(preserve_case = False, strip_handles = True, reduce_len = True)
@@ -73,8 +74,7 @@ from gensim import corpora, models
 
 dictionary = corpora.Dictionary(tokens)
 
-#%%
-print(dictionary)
+#print(dictionary)
 
 #%%
 # CHECKING IF IT IS POSSIBLE TO SORT THE DICTIONARY BEFORE THE NEXT STEPS
@@ -97,15 +97,11 @@ corpus = [dictionary.doc2bow(text) for text in tokens]
 
 #%%
 # Long computation time!!!
-ldamodel = models.ldamodel.LdaModel(corpus, num_topics = 5, id2word = dictionary, passes = 20)
-
-#%%
-#ldamodel1 = models.ldamodel.LdaModel(corpus, num_topics=3, id2word = dictionary, passes=1)
-
+ldamodel = models.ldamodel.LdaModel(corpus, num_topics = 5, id2word = dictionary, passes = 20) 
 
 #%%
 # Top 3 words associated with the 3 topics we clustered the data into
-print(ldamodel.print_topics(num_topics=5, num_words=3))
+print(ldamodel.print_topics(num_topics=5, num_words=5))
 
 #%%
 
