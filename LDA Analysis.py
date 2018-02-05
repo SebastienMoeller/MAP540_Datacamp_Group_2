@@ -22,6 +22,10 @@ del data['Unnamed: 0']
 commentsiX = data[data['product'] == 'iPhone X']
 commentsi8 = data[data['product'] == 'iPhone 8']
 commentsS8 = data[data['product'] == 'Samsung S8']
+
+commentsiX = commentsiX['comments']
+commentsi8 = commentsi8['comments']
+commentsS8 = commentsS8['comments']
 #%% KIM's DATA SET
 
 #data = pd.read_csv('data_scraping_V2.csv', encoding = 'ISO-8859-1')
