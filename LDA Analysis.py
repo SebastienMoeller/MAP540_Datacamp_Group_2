@@ -32,7 +32,7 @@ data = data[data['source'] != 'twitter']
 comments = data['text'].tolist()
 
 # For testing I reduced the data set
-comments = comments[100:1100]
+#comments = comments[100:1100]
 
 #%%
 # Given a list of tokens passed through nltk.pos_tag(tokens), this returns the
@@ -132,6 +132,13 @@ def listGrams(input_list, n):
 tokens = tokenList(comments)
 
 #%%
+tokenSorted = []
+for i in range(len(tokens)):
+    tokenSorted = tokenSorted + tokens[i]
+
+tokenSorted = ' '.join(tokenSorted)
+
+#%%
 from gensim import corpora, models
 
 dictionary = corpora.Dictionary(tokens)
@@ -140,35 +147,36 @@ dictionary = corpora.Dictionary(tokens)
 
 #%%
 # CHECKING IF IT IS POSSIBLE TO SORT THE DICTIONARY BEFORE THE NEXT STEPS
-test = []
+#test = []
 
-for i in range(len(dictionary)):
-    test.append(dictionary[i])
+#for i in range(len(dictionary)):
+#    test.append(dictionary[i])
 
-test.sort()
-testDict = corpora.Dictionary(test)
+#test.sort()
+#testDict = corpora.Dictionary(test)
 
 #%%
 # ALTERNATE APPROACH
-import operator
-sortedDictionary = sorted(dictionary.items(), key=operator.itemgetter(1))
-dictionary2 = dict(sortedDictionary)
+#import operator
+#sortedDictionary = sorted(dictionary.items(), key=operator.itemgetter(1))
+#dictionary2 = dict(sortedDictionary)
 
 #%%
 corpus = [dictionary.doc2bow(text) for text in tokens]
 
 #%%
 # Long computation time!!!
-ldamodel = models.ldamodel.LdaModel(corpus, num_topics = 5, id2word = dictionary, passes = 20) 
+ldamodel = models.ldamodel.LdaModel(corpus, num_topics = 5, id2word = dictionary, passes = 20)
 
 #%%
 # Top 3 words associated with the 3 topics we clustered the data into
-print(ldamodel.print_topics(num_topics=5, num_words=5))
+print(ldamodel.print_topics(num_words = 10))
 
 #%%
+print(ldamodel.get_document_topics(tokens))
 
-
-
+#%%
+ldamodel.get
 
 
 
