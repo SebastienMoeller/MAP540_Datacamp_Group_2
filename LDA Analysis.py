@@ -15,23 +15,27 @@ from nltk.corpus import wordnet
 from nltk import pos_tag
 
 #%%
-#corpus = pd.read_csv('tfidf_monogram.csv')
-
-#%%
 # Encoding options: IBM437, ISO-8859-1, ibm1125
-data = pd.read_csv('data_scraping_V2.csv', encoding = 'ISO-8859-1')
+data = pd.read_csv('Reviews.csv', encoding = 'ISO-8859-1')
+del data['Unnamed: 0']
+#%%
+commentsiX = data[data['product'] == 'iPhone X']
+commentsi8 = data[data['product'] == 'iPhone 8']
+commentsS8 = data[data['product'] == 'Samsung S8']
+#%% KIM's DATA SET
+
+#data = pd.read_csv('data_scraping_V2.csv', encoding = 'ISO-8859-1')
+# Reddit comments contain mostly useless comments
+#data = data[data['source'] != 'reddit']
+# Youtube comments contain mostly useless comments
+#data = data[data['source'] != 'youtube']
+# Most twitter comments are broken
+#data = data[data['source'] != 'twitter']
+
+#comments = data['text'].tolist()
 
 #%%
-# Reddit comments contain mostly useless comments
-data = data[data['source'] != 'reddit']
-# Youtube comments contain mostly useless comments
-data = data[data['source'] != 'youtube']
-# Most twitter comments are broken
-data = data[data['source'] != 'twitter']
-
-comments = data['text'].tolist()
-
-# For testing I reduced the data set
+# For testing I reduce the data set
 #comments = comments[100:1100]
 
 #%%
@@ -129,48 +133,53 @@ def listGrams(input_list, n):
 
 
 #%%
-tokens = tokenList(comments)
+#tokens = tokenList(comments)
+tokensiX = tokenList(commentsiX)
+tokensi8 = tokenList(commentsi8)
+tokensS8 = tokenList(commentsS8)
 
 #%%
+from gensim import corpora, models
+
+#dictionary = corpora.Dictionary(tokens)
+dictionaryiX = corpora.Dictionary(tokensiX)
+dictionaryi8 = corpora.Dictionary(tokensi8)
+dictionaryS8 = corpora.Dictionary(tokensS8)
+#print(dictionary)
+
+#%%
+#corpus = [dictionary.doc2bow(text) for text in tokens]
+corpusiX = [dictionaryiX.doc2bow(text) for text in tokensiX]
+corpusi8 = [dictionaryi8.doc2bow(text) for text in tokensi8]
+corpusS8 = [dictionaryS8.doc2bow(text) for text in tokensS8]
+
+#%%
+# Long computation time!!!
+#ldamodel = models.ldamodel.LdaModel(corpus, num_topics = 40, id2word = dictionary, passes = 10)
+ldaiX = models.ldamodel.LdaModel(corpusiX, num_topics = 40, id2word = dictionaryiX, passes = 10)
+ldai8 = models.ldamodel.LdaModel(corpusi8, num_topics = 40, id2word = dictionaryi8, passes = 10)
+ldaS8 = models.ldamodel.LdaModel(corpusS8, num_topics = 40, id2word = dictionaryS8, passes = 10)
+
+#%%
+# Top 10 words associated with the 40 topics we clustered the data into
+#print(ldamodel.print_topics(num_topics = 40, num_words = 10))
+print(ldaiX.print_topics(num_topics = 40, num_words = 10))
+print(ldai8.print_topics(num_topics = 40, num_words = 10))
+print(ldaS8.print_topics(num_topics = 40, num_words = 10))
+#%%
+
+
+
+
+
+#%% TESTING ALTERNATE METHOD
 tokenSorted = []
 for i in range(len(tokens)):
     tokenSorted = tokenSorted + tokens[i]
 
 tokenSorted = ' '.join(tokenSorted)
 
-#%%
-from gensim import corpora, models
 
-dictionary = corpora.Dictionary(tokens)
-
-#print(dictionary)
-
-#%%
-# CHECKING IF IT IS POSSIBLE TO SORT THE DICTIONARY BEFORE THE NEXT STEPS
-#test = []
-
-#for i in range(len(dictionary)):
-#    test.append(dictionary[i])
-
-#test.sort()
-#testDict = corpora.Dictionary(test)
-
-#%%
-# ALTERNATE APPROACH
-#import operator
-#sortedDictionary = sorted(dictionary.items(), key=operator.itemgetter(1))
-#dictionary2 = dict(sortedDictionary)
-
-#%%
-corpus = [dictionary.doc2bow(text) for text in tokens]
-
-#%%
-# Long computation time!!!
-ldamodel = models.ldamodel.LdaModel(corpus, num_topics = 40, id2word = dictionary, passes = 10)
-
-#%%
-# Top 3 words associated with the 3 topics we clustered the data into
-print(ldamodel.print_topics(num_topics = 40, num_words = 10))
 
 #%%
 print(ldamodel.get_document_topics(tokens))
