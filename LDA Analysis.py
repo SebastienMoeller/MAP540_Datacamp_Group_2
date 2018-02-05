@@ -166,11 +166,11 @@ corpus = [dictionary.doc2bow(text) for text in tokens]
 
 #%%
 # Long computation time!!!
-ldamodel = models.ldamodel.LdaModel(corpus, num_topics = 5, id2word = dictionary, passes = 20)
+ldamodel = models.ldamodel.LdaModel(corpus, num_topics = 40, id2word = dictionary, passes = 10)
 
 #%%
 # Top 3 words associated with the 3 topics we clustered the data into
-print(ldamodel.print_topics(num_words = 10))
+print(ldamodel.print_topics(num_topics = 40, num_words = 10))
 
 #%%
 print(ldamodel.get_document_topics(tokens))

@@ -1,0 +1,59 @@
+
+
+KIM's DATA
+[
+(0, '0.069*"get" + 0.062*"little" + 0.061*"one" + 0.055*"different" + 0.052*"use" + 0.037*"bit" + 0.029*"se" + 0.028*"thing" + 0.026*"nd" + 0.024*"take"'), 							# 
+(1, '0.102*"happy" + 0.078*"product" + 0.069*"purchase" + 0.047*"great" + 0.043*"im" + 0.042*"enjoy" + 0.039*"always" + 0.032*"&" + 0.030*"memory" + 0.030*"glad"'), 					# LIKE
+(2, '0.069*"definitely" + 0.053*"do" + 0.049*"technology" + 0.037*"data" + 0.034*"io" + 0.029*"cause" + 0.029*"surprise" + 0.028*"11" + 0.024*"others" + 0.023*"bestbuy"'), 			# 
+(3, '0.104*"previous" + 0.104*"model" + 0.030*"series" + 0.024*"truly" + 0.021*"wifi" + 0.020*"par" + 0.020*"today" + 0.019*"slightly" + 0.017*"medium" + 0.017*"ago"'), 				# 
+(4, '0.047*"day" + 0.041*"year" + 0.040*"use" + 0.038*"2" + 0.030*"time" + 0.029*"week" + 0.029*"every" + 0.026*"month" + 0.025*"get" + 0.024*"one"'), 									# 
+(5, '0.107*"user" + 0.041*"friendly" + 0.041*"light" + 0.038*"except" + 0.035*"n" + 0.031*"music" + 0.027*"able" + 0.025*"download" + 0.021*"thin" + 0.021*"weight"'), 					# POSITIVE FEATURE
+(6, '0.099*"price" + 0.051*"high" + 0.028*"system" + 0.027*"point" + 0.027*"pay" + 0.025*"end" + 0.021*"later" + 0.020*"operate" + 0.014*"$1" + 0.012*"say"'), 							# PRICE
+(7, '0.127*"5" + 0.099*"1" + 0.054*"4" + 0.054*"2" + 0.051*"3" + 0.041*"gb" + 0.025*"mah" + 0.021*"ram" + 0.021*"note" + 0.021*"inch"'), 												# SPECIFICATIONS
+(8, '0.042*"camera" + 0.025*"mode" + 0.024*"black" + 0.019*"light" + 0.019*"low" + 0.017*"portrait" + 0.016*"video" + 0.012*"photo" + 0.012*"also" + 0.012*"speaker"'), 				# CAMERA
+(9, '0.077*"give" + 0.035*"next" + 0.034*"box" + 0.030*"several" + 0.027*"star" + 0.026*"5" + 0.022*"word" + 0.022*"everyone" + 0.016*"lose" + 0.016*"tv"'), 							# 
+(10, '0.066*"still" + 0.041*"learn" + 0.038*"difference" + 0.038*"would" + 0.029*"wait" + 0.029*"product" + 0.026*"hope" + 0.025*"review" + 0.024*"help" + 0.021*"post"'), 				# UNCERTAIN (TIME)
+(11, '0.243*"best" + 0.113*"ever" + 0.066*"yet" + 0.056*"ive" + 0.054*"far" + 0.046*"smart" + 0.042*"one" + 0.036*"own" + 0.020*"make" + 0.014*"choice"'), 								# LIKE
+(12, '0.115*"charge" + 0.060*"wireless" + 0.036*"charger" + 0.031*"water" + 0.023*"ing" + 0.022*"feature" + 0.019*"upgrade" + 0.018*"keep" + 0.018*"fast" + 0.015*"resistant"'), 		# S8
+(13, '0.100*"awesome" + 0.080*"camera" + 0.080*"picture" + 0.069*"nice" + 0.061*"great" + 0.059*"love" + 0.046*"take" + 0.040*"quality" + 0.035*"amazing" + 0.035*"screen"'), 			# SCREEN
+(14, '0.046*"bad" + 0.043*"wish" + 0.036*"sure" + 0.034*"please" + 0.025*"isnt" + 0.025*"wasnt" + 0.025*"impressed" + 0.024*"cheap" + 0.023*"future" + 0.023*"bezel"'), 				# NEGATIVE
+(15, '0.050*"head" + 0.036*"nothing" + 0.035*"s4" + 0.030*"version" + 0.028*"else" + 0.028*"pixel" + 0.026*"jack" + 0.025*"4gb" + 0.023*"premium" + 0.022*"sony"'), 					# 
+(16, '0.173*"great" + 0.078*"camera" + 0.068*"fast" + 0.041*"screen" + 0.036*"well" + 0.032*"amaze" + 0.032*"much" + 0.029*"work" + 0.025*"speed" + 0.025*"faster"'), 					# LIKE
+(17, '0.177*"device" + 0.096*"update" + 0.051*"software" + 0.039*"slow" + 0.027*"power" + 0.025*"late" + 0.024*"usage" + 0.019*"test" + 0.019*"drain" + 0.018*"hardware"'), 			# SLOW UPDATE
+(18, '0.050*"bixby" + 0.030*"display" + 0.024*"hold" + 0.023*"screen" + 0.021*"top" + 0.020*"hand" + 0.020*"google" + 0.019*"notch" + 0.017*"turn" + 0.015*"even"'), 					# S8
+(19, '0.099*"mend" + 0.098*"would" + 0.043*"verizon" + 0.042*"work" + 0.035*"unlocked" + 0.035*"highly" + 0.029*"sim" + 0.029*"card" + 0.028*"carrier" + 0.026*"anyone"'), 				# 
+(20, '0.214*"love" + 0.197*"new" + 0.110*"feature" + 0.051*"upgrade" + 0.047*"great" + 0.037*"camera" + 0.021*"get" + 0.016*"old" + 0.015*"im" + 0.015*"many"'), 						# LIKE
+(21, '0.076*"fingerprint" + 0.048*"back" + 0.043*"scanner" + 0.041*"sensor" + 0.039*"glass" + 0.037*"finger" + 0.028*"delivery" + 0.024*"front" + 0.024*"fragile" + 0.021*"print"'), 	# FINGER PRINT
+(22, '0.138*"face" + 0.112*"id" + 0.111*"work" + 0.072*"gnition" + 0.070*"worth" + 0.044*"facial" + 0.038*"well" + 0.037*"upgraded" + 0.022*"love" + 0.018*"security"'), 				# FACE RECOGNITION
+(23, '0.097*"button" + 0.072*"home" + 0.066*"get" + 0.062*"use" + 0.031*"take" + 0.025*"like" + 0.018*"miss" + 0.017*"screen" + 0.016*"new" + 0.016*"little"'), 						# HOME BUTTON
+(24, '0.125*"everything" + 0.071*"expect" + 0.061*"apps" + 0.032*"function" + 0.032*"need" + 0.028*"want" + 0.027*"play" + 0.022*"sound" + 0.022*"game" + 0.021*"speaker"'), 			# 
+(25, '0.139*"size" + 0.136*"screen" + 0.125*"big" + 0.063*"small" + 0.054*"hand" + 0.054*"large" + 0.053*"perfect" + 0.030*"fit" + 0.023*"pocket" + 0.023*"flipkart"'), 				# SIZE
+(26, '0.047*"review" + 0.038*"us" + 0.031*"usb" + 0.029*"people" + 0.021*"yes" + 0.021*"really" + 0.021*"say" + 0.021*"need" + 0.020*"amazon" + 0.019*"cable"'), 						# 
+(27, '0.283*"battery" + 0.153*"life" + 0.051*"last" + 0.041*"long" + 0.039*"good" + 0.024*"well" + 0.022*"performance" + 0.021*"charge" + 0.019*"much" + 0.019*"wonderful"'), 			# BATTERY
+(28, '0.050*"know" + 0.046*"dont" + 0.035*"u" + 0.033*"note" + 0.029*"thats" + 0.028*"im" + 0.026*"well" + 0.025*"like" + 0.023*"think" + 0.022*"say"'), 								# 
+(29, '0.052*"ok" + 0.034*"actually" + 0.030*"radio" + 0.029*"ugly" + 0.023*"s3" + 0.022*"whole" + 0.020*"yeah" + 0.019*"happen" + 0.016*"stupid" + 0.016*"personally"'), 				# 
+(30, '0.068*"case" + 0.061*"screen" + 0.030*"glass" + 0.026*"drop" + 0.024*"protector" + 0.018*"would" + 0.017*"make" + 0.016*"without" + 0.015*"back" + 0.015*"go"'), 					# SCREEN FRAGILITY
+(31, '0.070*"smooth" + 0.066*"market" + 0.051*"son" + 0.050*"e" + 0.045*"world" + 0.044*"many" + 0.039*"guy" + 0.034*"transition" + 0.026*"available" + 0.025*"right"'), 				# UPGRADING
+(32, '0.106*"love" + 0.083*"wife" + 0.048*"daughter" + 0.048*"get" + 0.039*"absolutely" + 0.036*"come" + 0.035*"gift" + 0.034*"scratch" + 0.026*"bought" + 0.026*"person"'), 			# GIFT
+(33, '0.261*"buy" + 0.087*"best" + 0.052*"service" + 0.047*"great" + 0.028*"store" + 0.027*"customer" + 0.026*"deal" + 0.026*"get" + 0.018*"sale" + 0.017*"friend"'), 					# CUSTOMER SERVICE
+(34, '0.064*"issue" + 0.062*"call" + 0.048*"problem" + 0.041*"app" + 0.032*"dont" + 0.025*"buying" + 0.024*"open" + 0.021*"hear" + 0.020*"text" + 0.019*"return"'), 					# 
+(35, '0.163*"like" + 0.086*"edge" + 0.071*"really" + 0.059*"screen" + 0.043*"seem" + 0.038*"much" + 0.031*"curve" + 0.022*"look" + 0.021*"well" + 0.017*"think"'), 						# S8 SCREEN
+(36, '0.294*"use" + 0.207*"easy" + 0.041*"great" + 0.033*"love" + 0.021*"get" + 0.020*"set" + 0.019*"fast" + 0.018*"simple" + 0.014*"transfer" + 0.013*"make"'), 						# LIKE
+(37, '0.366*"good" + 0.089*"excellent" + 0.038*"camera" + 0.036*"quality" + 0.024*"product" + 0.023*"far" + 0.021*"disappoint" + 0.020*"job" + 0.017*"performance" + 0.017*"price"'), 	# GOOD
+(38, '0.121*"android" + 0.048*"switch" + 0.032*"brand" + 0.024*"must" + 0.022*"back" + 0.020*"lg" + 0.020*"go" + 0.019*"g" + 0.019*"user" + 0.018*"well"'), 							# SWITCH TO ANDRIOD
+(39, '0.040*"cant" + 0.036*"money" + 0.031*"go" + 0.024*"buy" + 0.020*"work" + 0.020*"make" + 0.019*"expensive" + 0.019*"extra" + 0.018*"tell" + 0.018*"anything"')						# PRICE
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+

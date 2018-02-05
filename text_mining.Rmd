@@ -5,7 +5,7 @@ output: html_notebook
 ### Preliminary step: importing the data
 
 ```{r}
-df <- read.csv("group2.csv", row.names = 1)
+df <- read.csv("/Users/agirelli/Desktop/data_scraping.csv")
 
 df <- df[complete.cases(df), ]
 df <- as.data.frame(df)
@@ -16,6 +16,7 @@ Our dataframe is ready
 ### First step: creating a corpus
 
 ```{r}
+install.packages("tm")
 library(tm)
 myCorpus <- Corpus(VectorSource(df$comment))
 ```

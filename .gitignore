@@ -2,7 +2,13 @@
 .Rhistory
 .RData
 .Ruserdata
+<<<<<<< HEAD
+data_scraping.csv
+=======
 
 tfidf_monogram.csv
 
 data_scraping_V2.csv
+>>>>>>> 35038013e15e9dc75fcd961cc15cbc73041eabf6
+.DS_Store
+.DS_Store
