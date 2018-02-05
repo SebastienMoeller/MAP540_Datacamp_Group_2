@@ -85,7 +85,7 @@ def tokenList(my_list):
     comments = [item.translate(str.maketrans(transB)) for item in comments]
     comments = [item.replace('iphone', ' ').replace('samsung', ' ').replace('galaxy', ' ').replace('apple', ' ').replace('plus', ' ').replace(
             ' x ', ' ').replace('’', '').replace("'", '').replace('http', '').replace('https', '').replace('com', ' ').replace('co', ' ').replace(
-                    '201', ' ').replace('0', ' ').replace('â\x80\x99', '').replace('í¢ä\x89åä\x8b¢', '') for item in comments]
+                    '201', ' ').replace('0', ' ').replace('â\x80\x99', '').replace('í¢ä\x89åä\x8b¢', '').replace('phone', ' ') for item in comments]
     
     # nltk's tokenizer
     tkzer = TweetTokenizer(preserve_case = False, strip_handles = True, reduce_len = True)
