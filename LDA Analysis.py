@@ -11,6 +11,8 @@ import pandas as pd
 from nltk.corpus import stopwords
 from nltk.tokenize import TweetTokenizer
 from nltk.stem import WordNetLemmatizer
+from nltk.corpus import wordnet
+from nltk import pos_tag
 
 #%%
 #corpus = pd.read_csv('tfidf_monogram.csv')
@@ -33,6 +35,44 @@ comments = data['text'].tolist()
 comments = comments[100:1100]
 
 #%%
+# Given a list of tokens passed through nltk.pos_tag(tokens), this returns the
+# pos argument needed for the lemmitization in a new list of pairs: (word, type)
+def get_wordnet_pos(tokensTag):
+    # tokensTag is a list of pairs of tuples and cannot be modified
+    tokenNew = []  
+    for i in range(len(tokensTag)):
+        # Save the current word being identified
+        tokenNew.append([tokensTag[i][0]])
+        # Append the type
+        if tokensTag[i][1][0] == 'J':
+            tokenNew[i].append(wordnet.ADJ)
+            
+        elif tokensTag[i][1][0] == 'V':
+            tokenNew[i].append(wordnet.VERB)
+            
+        elif tokensTag[i][1][0] == 'N':
+            tokenNew[i].append(wordnet.NOUN)
+            
+        elif tokensTag[i][1][0] == 'R':
+            tokenNew[i].append(wordnet.ADV)
+        
+        elif tokensTag[i][1][0] == '?':
+            tokenNew[i].append(wordnet.ADJ_SAT)
+        else:
+            tokenNew[i].append(wordnet.ADJ)
+            
+    return tokenNew
+
+# Smart lemmitization !
+def lemmatize(words):
+        
+    wordType = get_wordnet_pos(pos_tag(words))
+    wordnet_lemmatizer = WordNetLemmatizer()    
+    for i in range(len(wordType)):
+        words[i] = wordnet_lemmatizer.lemmatize(wordType[i][0], pos = wordType[i][1])
+    
+    return words 
+
 def tokenList(my_list):
     # Lowercase all characters 
     # (like this the same word will contribute to the same token count)
@@ -45,26 +85,28 @@ def tokenList(my_list):
     comments = [item.translate(str.maketrans(transB)) for item in comments]
     comments = [item.replace('iphone', ' ').replace('samsung', ' ').replace('galaxy', ' ').replace('apple', ' ').replace('plus', ' ').replace(
             ' x ', ' ').replace('’', '').replace("'", '').replace('http', '').replace('https', '').replace('com', ' ').replace('co', ' ').replace(
-                    '201', ' ').replace('0', ' ').replace('â\x80\x99', '').replace('í¢ä\x89åä\x8b¢', '').replace(
-                            for item in comments]
+                    '201', ' ').replace('0', ' ').replace('â\x80\x99', '').replace('í¢ä\x89åä\x8b¢', '') for item in comments]
     
     # nltk's tokenizer
     tkzer = TweetTokenizer(preserve_case = False, strip_handles = True, reduce_len = True)
     tokens = [tkzer.tokenize(item) for item in comments]
     
     tokens = []
-    wordnet_lemmatizer = WordNetLemmatizer()
+    #wordnet_lemmatizer = WordNetLemmatizer()
     for idx in range(len(comments)):
         # Remove engish stopwords
         words = ([word for word in comments[idx].split() if word not in stopwords.words('english')])
-        for idy in range(len(words)):
+        
+        words = lemmatize(words)
+        #for idy in range(len(words)):
             # Lemmatize each word
-            words[idy] = wordnet_lemmatizer.lemmatize(words[idy], pos = 'v')
+            
+            #words[idy] = wordnet_lemmatizer.lemmatize(words[idy], pos = 'v')
         
         tokens.append(words)
         # Progress report
         print('Tokenizing: ',idx+1, ' / ', len(comments))
-
+    
     return tokens
 
 # given a list of ordered tokens from a document, the function will return-
@@ -81,55 +123,11 @@ def listGrams(input_list, n):
     return output
 
 #%%
-    
-
-
-
-
-#%%
-from nltk.corpus import wordnet
-
-def get_wordnet_pos(tokensTag):
-    
-    tokenNew = []
-    
-    for i in range(len(tokensTag)):
-        tokenNew.append([tokensTag[i][0]])
-        
-        if tokensTag[i][1][0] == 'J':
-            tokenNew[i].append(wordnet.ADJ)
-            
-        elif tokensTag[i][1][0] == 'V':
-            tokenNew[i].append(wordnet.VERB)
-            
-        elif tokensTag[i][1][0] == 'N':
-            tokenNew[i].append(wordnet.NOUN)
-            
-        elif tokensTag[i][1][0] == 'R':
-            tokenNew[i].append(wordnet.ADV)
-        
-        elif tokensTag[i][1][0] == '?':
-            tokenNew[i].append(wordnet.ADJ_SAT)
-            
-    return tokenNew
-
-#%% CORRECTED LEMMITIZATION TECHNIQUE
-test = [ 'worse', 'going', 'purple', 'swam', 'swim']
-testTagsNL = nltk.pos_tag(test)
-testTagsWN = get_wordnet_pos(testTagsNL)
-
-wordnet_lemmatizer = WordNetLemmatizer()
-test[0] = wordnet_lemmatizer.lemmatize(testTagsWN[0][0], pos = testTagsWN[0][1])
-test[1] = wordnet_lemmatizer.lemmatize(testTagsWN[1][0], pos = testTagsWN[1][1])
-test
-
-#%%
 
 
 
 
 
-#%%
 #%%
 tokens = tokenList(comments)
 
