@@ -161,15 +161,24 @@ corpusS8 = [dictionaryS8.doc2bow(text) for text in tokensS8]
 # Long computation time!!!
 #ldamodel = models.ldamodel.LdaModel(corpus, num_topics = 40, id2word = dictionary, passes = 10)
 ldaiX = models.ldamodel.LdaModel(corpusiX, num_topics = 40, id2word = dictionaryiX, passes = 10)
+
+#%%
 ldai8 = models.ldamodel.LdaModel(corpusi8, num_topics = 40, id2word = dictionaryi8, passes = 10)
+
+#%%
 ldaS8 = models.ldamodel.LdaModel(corpusS8, num_topics = 40, id2word = dictionaryS8, passes = 10)
 
 #%%
 # Top 10 words associated with the 40 topics we clustered the data into
 #print(ldamodel.print_topics(num_topics = 40, num_words = 10))
 print(ldaiX.print_topics(num_topics = 40, num_words = 10))
+
+#%%
 print(ldai8.print_topics(num_topics = 40, num_words = 10))
+
+#%%
 print(ldaS8.print_topics(num_topics = 40, num_words = 10))
+
 #%%
 
 
