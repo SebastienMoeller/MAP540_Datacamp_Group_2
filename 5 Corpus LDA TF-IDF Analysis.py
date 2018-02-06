@@ -19,15 +19,20 @@ from sklearn.decomposition import NMF
 # Encoding options: IBM437, ISO-8859-1, ibm1125
 data = pd.read_csv('Reviews.csv', encoding = 'ISO-8859-1')
 del data['Unnamed: 0']
+
 #%%
 commentsiX = data[data['product'] == 'iPhone X']
-commentsi8 = data[data['product'] == 'iPhone 8']
-commentsS8 = data[data['product'] == 'Samsung S8']
-
 commentsiX = commentsiX['comments']
+
+#%%
+commentsi8 = data[data['product'] == 'iPhone 8']
 commentsi8 = commentsi8['comments']
+
+#%%
+commentsS8 = data[data['product'] == 'Samsung S8']
 commentsS8 = commentsS8['comments']
 
+#%%
 #maybe get ride of short comments (not very explicative...)?
 count = data.comments.apply(lambda x: len(str(x).split(' ')))
 short_reviews = data[count <6]
@@ -147,21 +152,25 @@ def listGrams(input_list, n):
 #%%
 #tokens = tokenList(comments)
 tokensiX = tokenList(commentsiX)
+
+#%%
 tokensi8 = tokenList(commentsi8)
+
+#%%
 tokensS8 = tokenList(commentsS8)
 
 #%% TF - IDF Matrix Construction
 # All lemmitized tokens joined by comment
 lemmiX = []
-lemmi8 = []
-lemmS8 = []
-
 for idx in range(len(tokensiX)):
     lemmiX.append(' '.join(tokensiX[idx]))
-
+#%%
+lemmi8 = []
 for idx in range(len(tokensi8)):
     lemmi8.append(' '.join(tokensi8[idx]))
 
+#%%
+lemmS8 = []
 for idx in range(len(tokensS8)):
     lemmS8.append(' '.join(tokensS8[idx]))
 
@@ -234,14 +243,22 @@ from gensim import corpora, models
 
 #dictionary = corpora.Dictionary(tokens)
 dictionaryiX = corpora.Dictionary(tokensiX)
+
+#%%
 dictionaryi8 = corpora.Dictionary(tokensi8)
+
+#%%
 dictionaryS8 = corpora.Dictionary(tokensS8)
 #print(dictionary)
 
 #%%
 #corpus = [dictionary.doc2bow(text) for text in tokens]
 corpusiX = [dictionaryiX.doc2bow(text) for text in tokensiX]
+
+#%%
 corpusi8 = [dictionaryi8.doc2bow(text) for text in tokensi8]
+
+#%%
 corpusS8 = [dictionaryS8.doc2bow(text) for text in tokensS8]
 
 #%%
@@ -285,8 +302,8 @@ tokenSorted = ' '.join(tokenSorted)
 print(ldamodel.get_document_topics(tokens))
 
 #%%
-ldamodel.get
-
+import pyLDAvis.gensim
+pyLDAvis.gensim.prepare(ldaS8, corpusS8, dictionaryS8)
 
 #%%
 #GRAPH THEORY
@@ -320,3 +337,5 @@ print(len(G.edges()))
 nx.draw(G)
 plt.savefig("simple_path.png") # save as png
 plt.show() # display
+
+#%%
