@@ -339,3 +339,44 @@ plt.savefig("simple_path.png") # save as png
 plt.show() # display
 
 #%%
+import networkx as nx
+import string
+from sys import maxint
+#%%
+def bigrams(line):
+    tokens = line.split(" ")
+    return [(tokens[i], tokens[i+1]) for i in range(0, len(tokens)-1)]
+#%%
+#flat_tokensS8 = [item for sublist in tokensS8 for item in sublist]
+G=nx.Graph()
+#VERTICES
+#for num in range(92638):
+#    G.add_node(flat_tokensS8[num])
+#G.nodes()
+
+#%%
+from collections import Counter
+#%%
+#iterate over all elements of bigrams
+    #G.add_edge(first element bigram, second element bigram)
+
+bigrams = listGrams(tokensS8,2)
+#%%
+countb = Counter(bigrams)
+#%%
+mostb =countb.most_common(300)
+#%%
+for pair in range(len(mostb)):
+    G.add_edge(mostb[pair][0][0],mostb[pair][0][1], weight =mostb[pair][1])  #add weight argument: weight = 
+
+#%%
+print(G.edges())
+#%%
+import matplotlib.pyplot as plt
+#%%
+nx.draw(G)
+plt.show() # display
+#%%
+from netowrkx 
+comp = nx.girvan_newman(G)
+tuple(sorted(c) for c in next(comp))
