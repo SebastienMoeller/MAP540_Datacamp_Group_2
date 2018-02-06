@@ -27,6 +27,13 @@ commentsS8 = data[data['product'] == 'Samsung S8']
 commentsiX = commentsiX['comments']
 commentsi8 = commentsi8['comments']
 commentsS8 = commentsS8['comments']
+
+#maybe get ride of short comments (not very explicative...)?
+count = data.comments.apply(lambda x: len(str(x).split(' ')))
+short_reviews = data[count <6]
+short_comments = short_reviews.comments
+avg_star = short_reviews.stars.mean()
+
 #%% KIM's DATA SET
 
 #data = pd.read_csv('data_scraping_V2.csv', encoding = 'ISO-8859-1')
@@ -281,15 +288,35 @@ print(ldamodel.get_document_topics(tokens))
 ldamodel.get
 
 
+#%%
+#GRAPH THEORY
+import networkx as nx
+import string
+from sys import maxint
+#%%
+def bigrams(line):
+    tokens = line.split(" ")
+    return [(tokens[i], tokens[i+1]) for i in range(0, len(tokens)-1)]
+#%%
+flat_tokensS8 = [item for sublist in tokensS8 for item in sublist]
+G=nx.Graph()
+#VERTICES
+for num in range(92638):
+    G.add_node(flat_tokensS8[num])
+G.nodes()
 
+#%%
+#iterate over all elements of bigrams
+    #G.add_edge(first element bigram, second element bigram)
 
+bigrams = listGrams(tokensS8,2)
 
+for pair in range(89180):
+    G.add_edge(bigrams[pair][0],bigrams[pair][1])
 
-
-
-
-
-
-
-
-
+#%%
+print(len(G.edges()))
+#%%
+nx.draw(G)
+plt.savefig("simple_path.png") # save as png
+plt.show() # display
