@@ -48,6 +48,169 @@ KIM's DATA
 
 
 
+OUR DATA
+iPhone X
+[
+(0, '0.023*"like" + 0.020*"go" + 0.018*"always" + 0.018*"im" + 0.017*"use" + 0.017*"great" + 0.016*"work" + 0.016*"love" + 0.015*"get" + 0.011*"camera"'), 						# 
+(1, '0.171*"best" + 0.065*"ever" + 0.041*"yet" + 0.033*"love" + 0.030*"far" + 0.024*"new" + 0.022*"definitely" + 0.016*"market" + 0.014*"buy" + 0.014*"work"'), 				# 
+(2, '0.032*"face" + 0.032*"nice" + 0.030*"love" + 0.028*"get" + 0.025*"really" + 0.021*"id" + 0.018*"gnition" + 0.018*"take" + 0.016*"like" + 0.016*"big"'), 					# 
+(3, '0.020*"use" + 0.019*"like" + 0.017*"good" + 0.017*"really" + 0.015*"own" + 0.015*"lot" + 0.015*"overall" + 0.015*"daughter" + 0.014*"face" + 0.013*"great"'), 				# 
+(4, '0.052*"best" + 0.041*"excellent" + 0.035*"great" + 0.033*"ever" + 0.024*"service" + 0.022*"camera" + 0.019*"feature" + 0.016*"good" + 0.016*"use" + 0.016*"speed"'), 		# 
+(5, '0.041*"new" + 0.025*"use" + 0.017*"screen" + 0.015*"work" + 0.015*"face" + 0.014*"love" + 0.014*"easy" + 0.013*"one" + 0.012*"home" + 0.012*"thing"'), 					# 
+(6, '0.040*"get" + 0.024*"love" + 0.021*"use" + 0.017*"good" + 0.017*"much" + 0.014*"great" + 0.011*"android" + 0.011*"especially" + 0.011*"user" + 0.010*"quick"'), 			# 
+(7, '0.032*"price" + 0.027*"use" + 0.022*"time" + 0.020*"get" + 0.013*"still" + 0.013*"11" + 0.012*"tag" + 0.011*"worth" + 0.011*"ive" + 0.010*"love"'), 						# 
+(8, '0.030*"id" + 0.025*"new" + 0.025*"much" + 0.022*"face" + 0.018*"feature" + 0.018*"work" + 0.016*"make" + 0.016*"screen" + 0.014*"smart" + 0.013*"good"'), 					# 
+(9, '0.031*"screen" + 0.029*"face" + 0.024*"get" + 0.023*"new" + 0.018*"love" + 0.018*"learn" + 0.015*"id" + 0.015*"gnition" + 0.015*"sleek" + 0.012*"still"'), 				# 
+(10, '0.070*"awesome" + 0.048*"camera" + 0.036*"love" + 0.026*"new" + 0.025*"feature" + 0.019*"use" + 0.018*"great" + 0.014*"screen" + 0.014*"gnition" + 0.011*"easy"'), 		# 
+(11, '0.016*"face" + 0.015*"gnition" + 0.015*"new" + 0.014*"give" + 0.014*"screen" + 0.014*"battery" + 0.013*"like" + 0.013*"well" + 0.012*"button" + 0.012*"take"'), 			# 
+(12, '0.016*"like" + 0.014*"first" + 0.014*"get" + 0.013*"camera" + 0.013*"new" + 0.012*"dont" + 0.012*"good" + 0.011*"one" + 0.010*"model" + 0.010*"close"'), 					# 
+(13, '0.056*"use" + 0.046*"button" + 0.045*"get" + 0.044*"home" + 0.037*"love" + 0.034*"great" + 0.025*"take" + 0.024*"easy" + 0.024*"screen" + 0.017*"like"'), 				# 
+(14, '0.040*"new" + 0.036*"product" + 0.024*"buy" + 0.021*"seem" + 0.019*"close" + 0.018*"glad" + 0.017*"make" + 0.014*"fan" + 0.013*"step" + 0.013*"time"'), 					# 
+(15, '0.038*"best" + 0.029*"well" + 0.020*"screen" + 0.019*"camera" + 0.018*"expect" + 0.015*"buy" + 0.014*"happy" + 0.014*"go" + 0.014*"fantastic" + 0.013*"store"'), 			# 
+(16, '0.035*"screen" + 0.028*"size" + 0.026*"love" + 0.015*"perfect" + 0.014*"get" + 0.011*"really" + 0.011*"battery" + 0.011*"life" + 0.008*"well" + 0.008*"device"'), 		# 
+(17, '0.032*"use" + 0.028*"easy" + 0.023*"new" + 0.020*"much" + 0.017*"camera" + 0.016*"face" + 0.015*"feature" + 0.014*"best" + 0.014*"enjoy" + 0.013*"also"'), 				# 
+(18, '0.027*"love" + 0.019*"screen" + 0.018*"issue" + 0.014*"charge" + 0.014*"great" + 0.012*"get" + 0.011*"first" + 0.011*"e" + 0.010*"make" + 0.010*"size"'), 				# 
+(19, '0.076*"amaze" + 0.076*"love" + 0.053*"camera" + 0.043*"mend" + 0.037*"great" + 0.035*"fast" + 0.031*"highly" + 0.023*"feature" + 0.020*"facial" + 0.020*"super"'), 		# 
+(20, '0.034*"great" + 0.027*"love" + 0.019*"feature" + 0.016*"new" + 0.014*"use" + 0.014*"face" + 0.013*"would" + 0.013*"id" + 0.011*"easy" + 0.010*"look"'), 					# 
+(21, '0.028*"screen" + 0.022*"size" + 0.015*"dont" + 0.015*"get" + 0.014*"great" + 0.012*"make" + 0.011*"upgrade" + 0.010*"camera" + 0.009*"well" + 0.009*"see"'), 				# 
+(22, '0.058*"use" + 0.057*"get" + 0.052*"button" + 0.047*"home" + 0.028*"take" + 0.026*"love" + 0.023*"new" + 0.020*"great" + 0.018*"face" + 0.018*"little"'), 					# 
+(23, '0.027*"button" + 0.026*"home" + 0.025*"facial" + 0.019*"screen" + 0.018*"gnition" + 0.018*"camera" + 0.015*"think" + 0.013*"one" + 0.012*"love" + 0.011*"awesome"'),  	# 
+(24, '0.036*"screen" + 0.036*"size" + 0.035*"really" + 0.029*"big" + 0.027*"like" + 0.020*"small" + 0.019*"upgrade" + 0.017*"great" + 0.017*"facial" + 0.017*"get"'), 			# 
+(25, '0.031*"one" + 0.029*"love" + 0.022*"get" + 0.014*"ive" + 0.012*"screen" + 0.012*"best" + 0.012*"use" + 0.011*"every" + 0.010*"yet" + 0.010*"issue"'), 					# 
+(26, '0.041*"screen" + 0.026*"face" + 0.024*"much" + 0.024*"camera" + 0.021*"id" + 0.020*"love" + 0.019*"great" + 0.018*"big" + 0.016*"picture" + 0.015*"work"'), 				# 
+(27, '0.018*"gnition" + 0.018*"love" + 0.015*"still" + 0.015*"camera" + 0.015*"fast" + 0.013*"new" + 0.013*"amaze" + 0.012*"good" + 0.012*"face" + 0.012*"like"'), 				# 
+(28, '0.024*"love" + 0.023*"face" + 0.019*"battery" + 0.018*"id" + 0.018*"size" + 0.017*"screen" + 0.016*"like" + 0.016*"far" + 0.015*"android" + 0.014*"life"'), 				# 
+(29, '0.033*"use" + 0.019*"love" + 0.017*"one" + 0.015*"ever" + 0.015*"great" + 0.015*"new" + 0.014*"since" + 0.013*"first" + 0.013*"ive" + 0.012*"screen"'), 					# 
+(30, '0.022*"use" + 0.021*"like" + 0.015*"one" + 0.014*"camera" + 0.012*"feature" + 0.011*"would" + 0.011*"enough" + 0.010*"know" + 0.010*"dont" + 0.010*"really"'), 			# 
+(31, '0.026*"great" + 0.017*"work" + 0.014*"screen" + 0.013*"use" + 0.012*"new" + 0.011*"facial" + 0.011*"wait" + 0.011*"gnition" + 0.010*"get" + 0.010*"like"'), 				# 
+(32, '0.038*"mend" + 0.024*"display" + 0.021*"purchase" + 0.018*"beautiful" + 0.017*"great" + 0.017*"fast" + 0.016*"anyone" + 0.015*"user" + 0.015*"happy" + 0.014*"good"'), 	# 
+(33, '0.058*"worth" + 0.024*"upgrade" + 0.022*"best" + 0.019*"dont" + 0.018*"every" + 0.015*"think" + 0.014*"wait" + 0.014*"take" + 0.014*"buy" + 0.012*"great"'), 				# 
+(34, '0.025*"screen" + 0.025*"like" + 0.019*"feature" + 0.014*"camera" + 0.013*"gnition" + 0.012*"ever" + 0.011*"love" + 0.011*"call" + 0.011*"button" + 0.010*"home"'), 		# 
+(35, '0.025*"need" + 0.024*"new" + 0.021*"lot" + 0.019*"feature" + 0.018*"close" + 0.017*"apps" + 0.017*"camera" + 0.017*"love" + 0.015*"screen" + 0.015*"still"'), 			# 
+(36, '0.117*"great" + 0.075*"love" + 0.031*"picture" + 0.027*"everything" + 0.018*"take" + 0.017*"easy" + 0.017*"work" + 0.016*"good" + 0.016*"upgraded" + 0.015*"life"'), 		# 
+(37, '0.028*"screen" + 0.024*"love" + 0.023*"new" + 0.016*"great" + 0.015*"best" + 0.015*"like" + 0.015*"size" + 0.014*"camera" + 0.014*"thing" + 0.014*"get"'), 				# 
+(38, '0.025*"screen" + 0.020*"good" + 0.016*"best" + 0.014*"get" + 0.013*"im" + 0.011*"oled" + 0.011*"around" + 0.010*"easy" + 0.009*"bit" + 0.009*"great"'), 					# 
+(39, '0.043*"love" + 0.022*"im" + 0.019*"work" + 0.019*"great" + 0.019*"well" + 0.017*"thing" + 0.017*"miss" + 0.014*"use" + 0.013*"face" + 0.013*"picture"')					# 
+]
+
+iPhone 8
+[
+(0, '0.064*"great" + 0.033*"new" + 0.019*"love" + 0.019*"camera" + 0.018*"like" + 0.015*"time" + 0.013*"also" + 0.013*"look" + 0.012*"really" + 0.012*"amaze"'), 				#
+(1, '0.114*"great" + 0.059*"love" + 0.039*"size" + 0.035*"picture" + 0.034*"camera" + 0.026*"product" + 0.024*"take" + 0.023*"screen" + 0.021*"good" + 0.017*"work"'), 			#
+(2, '0.019*"one" + 0.015*"battery" + 0.015*"get" + 0.014*"difference" + 0.013*"way" + 0.013*"like" + 0.013*"life" + 0.013*"finally" + 0.012*"feel" + 0.012*"great"'), 			#
+(3, '0.028*"u" + 0.019*"like" + 0.017*"use" + 0.016*"user" + 0.016*"upgrade" + 0.015*"every" + 0.013*"one" + 0.013*"last" + 0.013*"best" + 0.013*"year"'), 						#
+(4, '0.022*"great" + 0.021*"really" + 0.018*"well" + 0.016*"feel" + 0.013*"battery" + 0.012*"use" + 0.012*"get" + 0.011*"think" + 0.011*"charger" + 0.011*"e"'), 				#
+(5, '0.072*"love" + 0.061*"daughter" + 0.051*"camera" + 0.044*"great" + 0.036*"feature" + 0.031*"mend" + 0.029*"upgrade" + 0.026*"buy" + 0.025*"awesome" + 0.024*"get"'), 		#
+(6, '0.031*"one" + 0.022*"much" + 0.021*"year" + 0.018*"im" + 0.018*"would" + 0.016*"at&t" + 0.014*"new" + 0.013*"love" + 0.013*"buy" + 0.012*"learn"'), 						#
+(7, '0.084*"love" + 0.059*"new" + 0.023*"easy" + 0.019*"camera" + 0.019*"great" + 0.018*"get" + 0.018*"work" + 0.016*"feature" + 0.016*"also" + 0.015*"always"'), 				#
+(8, '0.026*"great" + 0.025*"feature" + 0.024*"delivery" + 0.023*"right" + 0.018*"glad" + 0.018*"come" + 0.017*"worth" + 0.015*"upgraded" + 0.014*"cheap" + 0.013*"time"'), 		#
+(9, '0.041*"love" + 0.029*"get" + 0.021*"say" + 0.020*"camera" + 0.019*"daughter" + 0.017*"new" + 0.017*"order" + 0.014*"white" + 0.014*"improvement" + 0.010*"like"'), 		#
+(10, '0.025*"little" + 0.018*"really" + 0.016*"good" + 0.015*"great" + 0.014*"much" + 0.013*"buy" + 0.013*"use" + 0.010*"pay" + 0.010*"well" + 0.009*"long"'), 					#
+(11, '0.053*"good" + 0.041*"get" + 0.030*"far" + 0.029*"work" + 0.020*"like" + 0.017*"product" + 0.015*"use" + 0.013*"best" + 0.013*"buy" + 0.013*"great"'), 					#
+(12, '0.033*"like" + 0.021*"get" + 0.020*"upgrade" + 0.015*"purchase" + 0.015*"pretty" + 0.015*"update" + 0.013*"perfect" + 0.010*"seem" + 0.010*"good" + 0.010*"use"'), 		#
+(13, '0.032*"like" + 0.026*"get" + 0.025*"new" + 0.022*"gift" + 0.020*"use" + 0.017*"dont" + 0.017*"go" + 0.016*"christmas" + 0.015*"buy" + 0.014*"really"'), 					#
+(14, '0.078*"use" + 0.051*"easy" + 0.035*"upgrade" + 0.032*"love" + 0.028*"take" + 0.028*"nice" + 0.021*"good" + 0.020*"button" + 0.019*"like" + 0.017*"home"'), 				#
+(15, '0.026*"well" + 0.022*"sure" + 0.021*"make" + 0.020*"model" + 0.020*"charge" + 0.016*"helpful" + 0.014*"quality" + 0.014*"like" + 0.014*"go" + 0.014*"find"'), 			#
+(16, '0.036*"camera" + 0.024*"note" + 0.017*"pixel" + 0.016*"far" + 0.014*"2" + 0.012*"watch" + 0.012*"display" + 0.012*"feature" + 0.011*"light" + 0.011*"work"'), 			#
+(17, '0.042*"purchase" + 0.026*"well" + 0.019*"dont" + 0.018*"feature" + 0.018*"friendly" + 0.017*"love" + 0.015*"probably" + 0.014*"user" + 0.014*"get" + 0.013*"go"'), 		#
+(18, '0.044*"great" + 0.038*"work" + 0.031*"upgrade" + 0.026*"get" + 0.017*"ive" + 0.017*"charge" + 0.015*"buy" + 0.015*"far" + 0.014*"happy" + 0.013*"im"'), 					#
+(19, '0.036*"charge" + 0.034*"upgrade" + 0.033*"new" + 0.031*"upgraded" + 0.030*"wireless" + 0.027*"well" + 0.023*"different" + 0.020*"like" + 0.020*"much" + 0.019*"seem"'), 	#
+(20, '0.099*"love" + 0.040*"buy" + 0.036*"new" + 0.034*"son" + 0.027*"make" + 0.026*"best" + 0.021*"purchase" + 0.019*"old" + 0.015*"year" + 0.015*"nice"'), 					#
+(21, '0.021*"use" + 0.017*"new" + 0.014*"camera" + 0.013*"4" + 0.012*"time" + 0.011*"purchase" + 0.010*"still" + 0.010*"cant" + 0.009*"upgrade" + 0.008*"get"'), 				#
+(22, '0.015*"would" + 0.015*"work" + 0.015*"one" + 0.015*"battery" + 0.013*"head" + 0.013*"jack" + 0.013*"new" + 0.013*"change" + 0.012*"love" + 0.012*"like"'), 				#
+(23, '0.029*"get" + 0.027*"battery" + 0.014*"work" + 0.014*"upgrade" + 0.014*"far" + 0.014*"processor" + 0.013*"good" + 0.013*"faster" + 0.012*"button" + 0.011*"basically"'), 	#
+(24, '0.024*"wouldnt" + 0.019*"charge" + 0.014*"dont" + 0.014*"support" + 0.013*"1" + 0.013*"respond" + 0.013*"buy" + 0.013*"day" + 0.012*"great" + 0.012*"fast"'), 			#
+(25, '0.028*"g5" + 0.016*"android" + 0.015*"like" + 0.015*"2" + 0.013*"use" + 0.012*"pixel" + 0.011*"camera" + 0.010*"update" + 0.010*"google" + 0.009*"seem"'), 				#
+(26, '0.041*"5" + 0.018*"upgrade" + 0.017*"new" + 0.015*"much" + 0.014*"like" + 0.014*"3" + 0.013*"glass" + 0.012*"fast" + 0.012*"fan" + 0.012*"another"'), 					#
+(27, '0.031*"charge" + 0.029*"wireless" + 0.022*"upgrade" + 0.018*"though" + 0.017*"go" + 0.015*"speaker" + 0.015*"software" + 0.014*"fast" + 0.013*"use" + 0.012*"even"'), 	#
+(28, '0.029*"happy" + 0.024*"get" + 0.017*"well" + 0.015*"like" + 0.011*"camera" + 0.010*"size" + 0.010*"new" + 0.009*"work" + 0.009*"good" + 0.009*"portrait"'), 				#
+(29, '0.063*"life" + 0.062*"battery" + 0.044*"faster" + 0.044*"much" + 0.033*"new" + 0.032*"camera" + 0.021*"like" + 0.020*"use" + 0.020*"well" + 0.019*"good"'), 				#
+(30, '0.025*"way" + 0.024*"issue" + 0.021*"use" + 0.016*"great" + 0.016*"go" + 0.015*"speaker" + 0.012*"love" + 0.012*"new" + 0.012*"far" + 0.012*"&"'), 						#
+(31, '0.019*"window" + 0.016*"2" + 0.014*"unlocked" + 0.014*"good" + 0.012*"android" + 0.012*"network" + 0.012*"new" + 0.011*"change" + 0.011*"really" + 0.011*"store"'), 		#
+(32, '0.045*"go" + 0.037*"expect" + 0.022*"large" + 0.016*"say" + 0.015*"old" + 0.014*"get" + 0.013*"buy" + 0.013*"nice" + 0.013*"cant" + 0.012*"back"'), 						#
+(33, '0.037*"like" + 0.030*"one" + 0.020*"say" + 0.019*"product" + 0.018*"get" + 0.018*"would" + 0.017*"im" + 0.014*"best" + 0.014*"love" + 0.013*"less"'), 					#
+(34, '0.046*"love" + 0.024*"first" + 0.023*"screen" + 0.021*"best" + 0.020*"scratch" + 0.019*"ever" + 0.017*"new" + 0.016*"size" + 0.014*"set" + 0.013*"choice"'), 				#
+(35, '0.027*"wireless" + 0.023*"awesome" + 0.021*"camera" + 0.018*"good" + 0.016*"ear" + 0.016*"long" + 0.015*"use" + 0.014*"upgrade" + 0.014*"need" + 0.013*"time"'), 			#
+(36, '0.040*"excellent" + 0.022*"camera" + 0.020*"use" + 0.018*"easy" + 0.017*"great" + 0.016*"figure" + 0.016*"get" + 0.014*"one" + 0.014*"thing" + 0.013*"still"'), 			#
+(37, '0.020*"get" + 0.019*"great" + 0.017*"would" + 0.017*"problem" + 0.015*"store" + 0.015*"day" + 0.013*"time" + 0.012*"tell" + 0.011*"one" + 0.009*"battery"'), 				#
+(38, '0.023*"best" + 0.021*"fast" + 0.020*"design" + 0.018*"time" + 0.017*"big" + 0.015*"thanks" + 0.014*"like" + 0.014*"look" + 0.014*"get" + 0.014*"buy"'), 					#
+(39, '0.029*"present" + 0.027*"christmas" + 0.020*"want" + 0.017*"love" + 0.016*"much" + 0.016*"get" + 0.016*"little" + 0.015*"update" + 0.015*"version" + 0.015*"another"')	#
+]
+
+Samsung S8
+[
+(0, '0.025*"switch" + 0.023*"wifi" + 0.019*"weight" + 0.017*"operate" + 0.014*"happy" + 0.012*"design" + 0.012*"capability" + 0.012*"hop" + 0.011*"wish" + 0.010*"one"'), 			#
+(1, '0.201*"good" + 0.057*"product" + 0.036*"great" + 0.031*"service" + 0.026*"buy" + 0.016*"price" + 0.015*"best" + 0.015*"customer" + 0.014*"well" + 0.013*"fantastic"'), 		#
+(2, '0.024*"use" + 0.014*"function" + 0.012*"battery" + 0.010*"take" + 0.010*"life" + 0.010*"well" + 0.009*"get" + 0.009*"day" + 0.008*"quality" + 0.008*"display"'), 				#
+(3, '0.019*"interface" + 0.019*"proof" + 0.018*"type" + 0.015*"edge" + 0.014*"case" + 0.014*"know" + 0.014*"water" + 0.013*"smart" + 0.013*"excelente" + 0.012*"dream"'), 			#
+(4, '0.025*"crack" + 0.024*"screen" + 0.018*"back" + 0.017*"first" + 0.016*"glass" + 0.016*"go" + 0.015*"5" + 0.013*"drop" + 0.011*"week" + 0.010*"time"'), 						#
+(5, '0.174*"nice" + 0.048*"wonderful" + 0.031*"come" + 0.023*"amazing" + 0.018*"call" + 0.015*"exactly" + 0.013*"seal" + 0.012*"expect" + 0.012*"root" + 0.012*"want"'), 			#
+(6, '0.104*"battery" + 0.063*"life" + 0.055*"great" + 0.023*"last" + 0.020*"long" + 0.019*"day" + 0.017*"feature" + 0.017*"good" + 0.015*"lot" + 0.015*"screen"'), 					#
+(7, '0.057*"carrier" + 0.031*"work" + 0.031*"unlock" + 0.028*"get" + 0.025*"service" + 0.025*"att" + 0.023*"version" + 0.020*"unlocked" + 0.017*"mobile" + 0.017*"store"'), 		#
+(8, '0.016*"get" + 0.012*"screen" + 0.012*"2" + 0.011*"3" + 0.011*"even" + 0.011*"day" + 0.010*"issue" + 0.010*"back" + 0.008*"would" + 0.008*"one"'), 								#
+(9, '0.015*"want" + 0.014*"new" + 0.013*"dont" + 0.013*"edge" + 0.011*"battery" + 0.011*"like" + 0.011*"work" + 0.011*"would" + 0.010*"buy" + 0.010*"apps"'), 						#
+(10, '0.018*"screen" + 0.018*"edge" + 0.017*"9" + 0.017*"1" + 0.016*"camera" + 0.014*"year" + 0.012*"g" + 0.012*"5" + 0.011*"ratio" + 0.010*"2"'), 									#
+(11, '0.078*"really" + 0.058*"like" + 0.036*"love" + 0.030*"wife" + 0.029*"get" + 0.024*"note" + 0.023*"ol" + 0.016*"im" + 0.014*"glad" + 0.013*"great"'), 							#
+(12, '0.028*"price" + 0.024*"time" + 0.023*"get" + 0.018*"pay" + 0.018*"update" + 0.014*"buy" + 0.013*"tell" + 0.013*"still" + 0.012*"new" + 0.012*"money"'), 						#
+(13, '0.022*"well" + 0.021*"item" + 0.020*"user" + 0.020*"keep" + 0.019*"good" + 0.016*"edge" + 0.015*"sleek" + 0.015*"design" + 0.014*"yet" + 0.014*"heavy"'), 					#
+(14, '0.025*"text" + 0.021*"word" + 0.018*"get" + 0.017*"ndition" + 0.014*"feature" + 0.013*"folder" + 0.013*"one" + 0.013*"horrible" + 0.013*"spell" + 0.011*"4th"'), 				#
+(15, '0.034*"bixby" + 0.033*"button" + 0.026*"screen" + 0.025*"use" + 0.010*"great" + 0.010*"thing" + 0.009*"get" + 0.009*"home" + 0.008*"like" + 0.007*"well"'), 					#
+(16, '0.040*"amaze" + 0.024*"screen" + 0.014*"anything" + 0.014*"feature" + 0.013*"charge" + 0.012*"battery" + 0.012*"back" + 0.011*"many" + 0.010*"need" + 0.010*"great"'), 		#
+(17, '0.106*"awesome" + 0.062*"love" + 0.052*"user" + 0.040*"well" + 0.031*"son" + 0.027*"hand" + 0.026*"quality" + 0.025*"friendly" + 0.023*"fit" + 0.021*"absolutely"'), 			#
+(18, '0.044*"much" + 0.037*"screen" + 0.031*"fast" + 0.027*"feature" + 0.026*"edge" + 0.022*"super" + 0.018*"small" + 0.018*"like" + 0.017*"look" + 0.016*"faster"'), 				#
+(19, '0.047*"great" + 0.015*"bixby" + 0.015*"screen" + 0.014*"hate" + 0.014*"work" + 0.013*"otherwise" + 0.010*"buy" + 0.009*"good" + 0.009*"live" + 0.008*"big"'), 				#
+(20, '0.189*"excellent" + 0.020*"use" + 0.017*"battery" + 0.017*"game" + 0.016*"version" + 0.015*"great" + 0.014*"camera" + 0.013*"product" + 0.012*"order" + 0.012*"service"'), 	#
+(21, '0.125*"screen" + 0.041*"protector" + 0.037*"case" + 0.029*"glass" + 0.022*"drop" + 0.020*"get" + 0.020*"break" + 0.018*"curve" + 0.017*"edge" + 0.017*"scratch"'), 			#
+(22, '0.167*"love" + 0.077*"great" + 0.072*"easy" + 0.062*"use" + 0.056*"new" + 0.041*"camera" + 0.037*"feature" + 0.026*"perfect" + 0.024*"take" + 0.020*"picture"'), 				#
+(23, '0.025*"make" + 0.024*"switch" + 0.021*"easy" + 0.020*"thank" + 0.019*"learn" + 0.018*"outstanding" + 0.016*"new" + 0.015*"par" + 0.015*"take" + 0.014*"use"'), 				#
+(24, '0.028*"get" + 0.020*"screen" + 0.019*"like" + 0.016*"camera" + 0.013*"little" + 0.012*"well" + 0.011*"s5" + 0.011*"also" + 0.011*"much" + 0.010*"good"'), 					#
+(25, '0.062*"camera" + 0.048*"great" + 0.035*"design" + 0.024*"good" + 0.021*"display" + 0.020*"sleek" + 0.018*"performance" + 0.018*"feature" + 0.016*"quality" + 0.016*"amaze"'), #
+(26, '0.030*"still" + 0.029*"ive" + 0.024*"month" + 0.022*"learn" + 0.022*"far" + 0.021*"new" + 0.021*"use" + 0.021*"week" + 0.020*"day" + 0.018*"im"'), 							#
+(27, '0.015*"use" + 0.012*"screen" + 0.011*"like" + 0.009*"camera" + 0.009*"fingerprint" + 0.008*"scanner" + 0.008*"well" + 0.007*"work" + 0.007*"battery" + 0.007*"look"'), 		#
+(28, '0.030*"thanks" + 0.020*"s3" + 0.019*"get" + 0.018*"love" + 0.012*"office" + 0.012*"ir" + 0.012*"ol" + 0.012*"would" + 0.011*"remote" + 0.011*"blaster"'), 					#
+(29, '0.019*"product" + 0.016*"buy" + 0.015*"nothing" + 0.014*"great" + 0.013*"charge" + 0.013*"problem" + 0.012*"top" + 0.011*"dex" + 0.011*"day" + 0.010*"use"'), 				#
+(30, '0.037*"wow" + 0.032*"fine" + 0.028*"brand" + 0.026*"breeze" + 0.023*"beat" + 0.014*"shiny" + 0.013*"daily" + 0.012*"depend" + 0.011*"share" + 0.010*"look"'), 				#
+(31, '0.076*"work" + 0.058*"sim" + 0.042*"card" + 0.033*"great" + 0.032*"verizon" + 0.021*"expect" + 0.019*"happy" + 0.018*"new" + 0.017*"network" + 0.017*"cell"'), 				#
+(32, '0.073*"everything" + 0.032*"buy" + 0.026*"s5" + 0.025*"upgraded" + 0.024*"love" + 0.020*"upgrade" + 0.015*"ok" + 0.014*"like" + 0.011*"new" + 0.011*"daughter"'), 			#
+(33, '0.017*"use" + 0.016*"get" + 0.014*"usb" + 0.011*"like" + 0.010*"thing" + 0.010*"one" + 0.010*"screen" + 0.009*"old" + 0.009*"adapter" + 0.008*"would"'), 						#
+(34, '0.021*"charger" + 0.021*"use" + 0.019*"charge" + 0.016*"make" + 0.016*"apps" + 0.016*"one" + 0.015*"set" + 0.013*"change" + 0.013*"seem" + 0.012*"get"'), 					#
+(35, '0.022*"purchase" + 0.014*"sale" + 0.014*"im" + 0.014*"orchid" + 0.013*"call" + 0.013*"smart" + 0.012*"year" + 0.011*"simply" + 0.011*"gray" + 0.011*"happy"'), 				#
+(36, '0.022*"feature" + 0.022*"great" + 0.017*"one" + 0.016*"fast" + 0.015*"1st" + 0.014*"bixby" + 0.013*"like" + 0.012*"without" + 0.011*"time" + 0.010*"ai"'), 					#
+(37, '0.103*"&" + 0.039*"call" + 0.035*"expectation" + 0.027*"trade" + 0.021*"exceed" + 0.017*"build" + 0.016*"feature" + 0.016*"ready" + 0.015*"language" + 0.014*"rock"'), 		#
+(38, '0.023*"apps" + 0.022*"app" + 0.016*"software" + 0.015*"one" + 0.012*"get" + 0.012*"use" + 0.012*"store" + 0.011*"google" + 0.011*"device" + 0.011*"go"'), 					#
+(39, '0.111*"best" + 0.043*"ever" + 0.038*"great" + 0.036*"mend" + 0.032*"would" + 0.022*"one" + 0.020*"ive" + 0.018*"far" + 0.017*"own" + 0.017*"buy"')							#
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
