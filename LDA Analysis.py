@@ -13,7 +13,8 @@ from nltk.tokenize import TweetTokenizer
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import wordnet
 from nltk import pos_tag
-
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.decomposition import NMF
 #%%
 # Encoding options: IBM437, ISO-8859-1, ibm1125
 data = pd.read_csv('Reviews.csv', encoding = 'ISO-8859-1')
@@ -158,11 +159,29 @@ for idx in range(len(tokensS8)):
     lemmS8.append(' '.join(tokensS8[idx]))
 
 #%%
-    
-    
-    
-    
-    
+tfidf_vectorizer = TfidfVectorizer(max_df=0.95, min_df=2, stop_words='english')
+termdoc = tfidf_vectorizer.fit_transform(lemmiX)
+TFM = pd.DataFrame(termdoc.todense()).replace(0, '')
+#%%
+n_dimensions = 40 # This can also be interpreted as topics in this case. This is the "beauty" of NMF. 10 is arbitrary
+model = NMF(n_components=40, init='random')
+W = model.fit_transform(termdoc) 
+H = model.components_ 
+#%%
+W = pd.DataFrame(W).replace(0, '')
+H = pd.DataFrame(H).replace(0, '')
+#%%
+# Since NMF dimensions can be interpreted as topics, let's look at the dimensions
+words = tfidf_vectorizer.get_feature_names()
+n_top_words = 20 # print 10 words by dimension. You can change this number
+
+# Loop for each dimension: what words are the most dominant in each dimension
+for i_dimension, dimension in enumerate(model.components_):
+    print("Topic #%d:" % i_dimension)
+    print(" ".join([words[i] for i in dimension.argsort()[:-n_top_words - 1:-1]]))
+print()
+
+# Can you interpret these dimensions as humanly intelligible topics?
 #%% LDA ANALYSIS
 from gensim import corpora, models
 
