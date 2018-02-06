@@ -142,7 +142,28 @@ tokensiX = tokenList(commentsiX)
 tokensi8 = tokenList(commentsi8)
 tokensS8 = tokenList(commentsS8)
 
+#%% TF - IDF Matrix Construction
+# All lemmitized tokens joined by comment
+lemmiX = []
+lemmi8 = []
+lemmS8 = []
+
+for idx in range(len(tokensiX)):
+    lemmiX.append(' '.join(tokensiX[idx]))
+
+for idx in range(len(tokensi8)):
+    lemmi8.append(' '.join(tokensi8[idx]))
+
+for idx in range(len(tokensS8)):
+    lemmS8.append(' '.join(tokensS8[idx]))
+
 #%%
+    
+    
+    
+    
+    
+#%% LDA ANALYSIS
 from gensim import corpora, models
 
 #dictionary = corpora.Dictionary(tokens)
