@@ -309,18 +309,23 @@ pyLDAvis.gensim.prepare(ldaS8, corpusS8, dictionaryS8)
 #GRAPH THEORY
 import networkx as nx
 import string
-from sys import maxint
+#from sys import maxint
 #%%
 def bigrams(line):
     tokens = line.split(" ")
     return [(tokens[i], tokens[i+1]) for i in range(0, len(tokens)-1)]
 #%%
-flat_tokensS8 = [item for sublist in tokensS8 for item in sublist]
+from textblob import TextBlob
+#%%
+blob = TextBlob(flat_tokensS8)
+#%%
+tokensS8nouns = tokensS8(lambda n: [w.lemma_ for w in n if w.pos_=='NOUN'])
+flat_tokensS8 = [item for sublist in tokensS8nouns for item in sublist]
 G=nx.Graph()
 #VERTICES
-for num in range(92638):
-    G.add_node(flat_tokensS8[num])
-G.nodes()
+#for num in range(92638):
+#    G.add_node(flat_tokensS8[num])
+#G.nodes()
 
 #%%
 #iterate over all elements of bigrams
@@ -341,14 +346,23 @@ plt.show() # display
 #%%
 import networkx as nx
 import string
-from sys import maxint
+#from sys import maxint
+import spacy
+#%%
+#TRYING TO KEEP ONLY NOUNS
+#nlp = spacy.load('en')
+#S8 = pd.Series.to_frame(commentsS8)
+#S8['nlp_spacy'] = S8.text.progress_map(lambda comment: nlp(comment.lower()))
+#tokensS8['nlp_spacy_len'] = tokensS8['nlp_spacy'].map(len)
+#tokensS8['noun_tokens'] = tokensS8.nlp_spacy.progress_map(
+ #   lambda n: [w.lemma_ for w in n if w.pos_=='NOUN'])
 #%%
 def bigrams(line):
     tokens = line.split(" ")
     return [(tokens[i], tokens[i+1]) for i in range(0, len(tokens)-1)]
 #%%
 #flat_tokensS8 = [item for sublist in tokensS8 for item in sublist]
-G=nx.Graph()
+#G=nx.Graph()
 #VERTICES
 #for num in range(92638):
 #    G.add_node(flat_tokensS8[num])
@@ -356,6 +370,8 @@ G=nx.Graph()
 
 #%%
 from collections import Counter
+import matplotlib
+from community import community_louvain
 #%%
 #iterate over all elements of bigrams
     #G.add_edge(first element bigram, second element bigram)
@@ -364,19 +380,120 @@ bigrams = listGrams(tokensS8,2)
 #%%
 countb = Counter(bigrams)
 #%%
-mostb =countb.most_common(300)
+mostb =countb.most_common(1000)
+mostb
 #%%
+G=nx.Graph()
 for pair in range(len(mostb)):
     G.add_edge(mostb[pair][0][0],mostb[pair][0][1], weight =mostb[pair][1])  #add weight argument: weight = 
 
 #%%
-print(G.edges())
+def community_layout(g, partition):
+    """
+    Compute the layout for a modular graph.
+
+
+    Arguments:
+    ----------
+    g -- networkx.Graph or networkx.DiGraph instance
+        graph to plot
+
+    partition -- dict mapping int node -> int community
+        graph partitions
+
+
+    Returns:
+    --------
+    pos -- dict mapping int node -> (float x, float y)
+        node positions
+
+    """
+
+    pos_communities = _position_communities(g, partition, scale=3.)
+
+    pos_nodes = _position_nodes(g, partition, scale=1.)
+
+    # combine positions
+    pos = dict()
+    for node in g.nodes():
+        pos[node] = pos_communities[node] + pos_nodes[node]
+
+    return pos
+
+def _position_communities(g, partition, **kwargs):
+
+    # create a weighted graph, in which each node corresponds to a community,
+    # and each edge weight to the number of edges between communities
+    between_community_edges = _find_between_community_edges(g, partition)
+
+    communities = set(partition.values())
+    hypergraph = nx.DiGraph()
+    hypergraph.add_nodes_from(communities)
+    for (ci, cj), edges in between_community_edges.items():
+        hypergraph.add_edge(ci, cj, weight=len(edges))
+
+    # find layout for communities
+    pos_communities = nx.spring_layout(hypergraph, **kwargs)
+
+    # set node positions to position of community
+    pos = dict()
+    for node, community in partition.items():
+        pos[node] = pos_communities[community]
+
+    return pos
+
+def _find_between_community_edges(g, partition):
+
+    edges = dict()
+
+    for (ni, nj) in g.edges():
+        ci = partition[ni]
+        cj = partition[nj]
+
+        if ci != cj:
+            try:
+                edges[(ci, cj)] += [(ni, nj)]
+            except KeyError:
+                edges[(ci, cj)] = [(ni, nj)]
+
+    return edges
+
+def _position_nodes(g, partition, **kwargs):
+    """
+    Positions nodes within communities.
+    """
+
+    communities = dict()
+    for node, community in partition.items():
+        try:
+            communities[community] += [node]
+        except KeyError:
+            communities[community] = [node]
+
+    pos = dict()
+    for ci, nodes in communities.items():￼
+        subgraph = g.subgraph(nodes)
+        pos_subgraph = nx.spring_layout(subgraph, **kwargs)
+        pos.update(pos_subgraph)
+
+    return pos
+#%%
+matplotlib.rcParams['figure.figsize'] = (40, 40)
+#G=nx.ego_graph(G=G, radius=1, n='problem')
+partition = community_louvain.best_partition(G)
+pos = community_layout(g=G, partition=partition)
+nx.draw(G, pos, node_color=list(partition.values()), 
+        labels=dict((n,n) for n,d in G.nodes(data=True)), font_color='black', font_size=8, font_weight='bold',
+       edge_color='lightgray')
 #%%
 import matplotlib.pyplot as plt
 #%%
 nx.draw(G)
 plt.show() # display
 #%%
-from netowrkx 
-comp = nx.girvan_newman(G)
-tuple(sorted(c) for c in next(comp))
+#trying with Girvan-Newman
+import itertools
+comp = nx.algorithms.community.centrality.girvan_newman(G)
+k = 10
+for i in itertools.islice(comp, k):
+    cluster = tuple(sorted(c) for c in communities)
