@@ -159,6 +159,12 @@ tokensi8 = tokenList(commentsi8)
 #%%
 tokensS8 = tokenList(commentsS8)
 
+#%%
+
+
+
+
+
 #%% TF - IDF Matrix Construction
 # All lemmitized tokens joined by comment
 lemmiX = []
@@ -241,7 +247,10 @@ print()
 #%% LDA ANALYSIS
 from gensim import corpora, models
 
+#%%
 #dictionary = corpora.Dictionary(tokens)
+
+#%%
 dictionaryiX = corpora.Dictionary(tokensiX)
 
 #%%
@@ -289,104 +298,85 @@ print(ldaS8.print_topics(num_topics = 40, num_words = 10))
 
 
 
-#%% TESTING ALTERNATE METHOD
-tokenSorted = []
-for i in range(len(tokens)):
-    tokenSorted = tokenSorted + tokens[i]
-
-tokenSorted = ' '.join(tokenSorted)
-
-
-
-#%%
-print(ldamodel.get_document_topics(tokens))
-
-#%%
+#%% KATIE
 import pyLDAvis.gensim
-pyLDAvis.gensim.prepare(ldaS8, corpusS8, dictionaryS8)
+pyLDAvis.enable_notebook()
 
+#%%
+pyLDAvis.gensim.prepare(ldaiX, corpusiX, dictionaryiX)
+
+#%%
+pyLDAvis.display(ldaViz)
 #%%
 #GRAPH THEORY
 import networkx as nx
-import string
-#from sys import maxint
-#%%
-def bigrams(line):
-    tokens = line.split(" ")
-    return [(tokens[i], tokens[i+1]) for i in range(0, len(tokens)-1)]
-#%%
-from textblob import TextBlob
-#%%
-blob = TextBlob(flat_tokensS8)
-#%%
-tokensS8nouns = tokensS8(lambda n: [w.lemma_ for w in n if w.pos_=='NOUN'])
-flat_tokensS8 = [item for sublist in tokensS8nouns for item in sublist]
-G=nx.Graph()
-#VERTICES
-#for num in range(92638):
-#    G.add_node(flat_tokensS8[num])
-#G.nodes()
 
 #%%
-#iterate over all elements of bigrams
-    #G.add_edge(first element bigram, second element bigram)
-
-bigrams = listGrams(tokensS8,2)
-
-for pair in range(89180):
-    G.add_edge(bigrams[pair][0],bigrams[pair][1])
 
 #%%
-print(len(G.edges()))
-#%%
-nx.draw(G)
-plt.savefig("simple_path.png") # save as png
-plt.show() # display
 
 #%%
-import networkx as nx
-import string
-#from sys import maxint
-import spacy
-#%%
-#TRYING TO KEEP ONLY NOUNS
-#nlp = spacy.load('en')
-#S8 = pd.Series.to_frame(commentsS8)
-#S8['nlp_spacy'] = S8.text.progress_map(lambda comment: nlp(comment.lower()))
-#tokensS8['nlp_spacy_len'] = tokensS8['nlp_spacy'].map(len)
-#tokensS8['noun_tokens'] = tokensS8.nlp_spacy.progress_map(
- #   lambda n: [w.lemma_ for w in n if w.pos_=='NOUN'])
-#%%
-def bigrams(line):
-    tokens = line.split(" ")
-    return [(tokens[i], tokens[i+1]) for i in range(0, len(tokens)-1)]
-#%%
-#flat_tokensS8 = [item for sublist in tokensS8 for item in sublist]
-#G=nx.Graph()
-#VERTICES
-#for num in range(92638):
-#    G.add_node(flat_tokensS8[num])
-#G.nodes()
+    
+
+
+
 
 #%%
+# FILTER TOKENS TO ONLY CONTAIN NOUNS
+def nounTokens(tokenizedComments):
+    newTokens = []
+    for i in range(len(tokenizedComments)):
+        print( i, ' / ', len(tokenizedComments))
+        tags = pos_tag(tokenizedComments[i])
+        nouns = [word for word,pos in tags if (pos == 'NN' or pos == 'NNP' or pos == 'NNS' or pos == 'NNPS')]
+        newTokens.append(nouns)
+    newTokens
+    
+#%%
+newTokensS8 = nounTokens(tokensS8)
+newTokensiX = nounTokens(tokensiX)
+newTokensi8 = nounTokens(tokensi8)
+
+#%%
+
+
+
+
+
+#%% BIGRAMS
 from collections import Counter
 import matplotlib
 from community import community_louvain
 #%%
 #iterate over all elements of bigrams
-    #G.add_edge(first element bigram, second element bigram)
+#G.add_edge(first element bigram, second element bigram)
 
-bigrams = listGrams(tokensS8,2)
+bigrams = listGrams(newTokensS8 ,2)
 #%%
 countb = Counter(bigrams)
 #%%
-mostb =countb.most_common(1000)
+mostb = countb.most_common(len(countb))
 mostb
-#%%
-G=nx.Graph()
+#%% DEFINING GRAPH USING BIGRAMS
+baseGraph = nx.Graph()
 for pair in range(len(mostb)):
-    G.add_edge(mostb[pair][0][0],mostb[pair][0][1], weight =mostb[pair][1])  #add weight argument: weight = 
+    baseGraph.add_edge(mostb[pair][0][0],mostb[pair][0][1], weight =mostb[pair][1])  #add weight argument: weight = 
 
+#%%
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
 #%%
 def community_layout(g, partition):
     """
@@ -457,7 +447,7 @@ def _find_between_community_edges(g, partition):
                 edges[(ci, cj)] = [(ni, nj)]
 
     return edges
-
+#%%
 def _position_nodes(g, partition, **kwargs):
     """
     Positions nodes within communities.
@@ -471,21 +461,34 @@ def _position_nodes(g, partition, **kwargs):
             communities[community] = [node]
 
     pos = dict()
-    for ci, nodes in communities.items():￼
+    for ci, nodes in communities.items():
         subgraph = g.subgraph(nodes)
         pos_subgraph = nx.spring_layout(subgraph, **kwargs)
         pos.update(pos_subgraph)
 
     return pos
 #%%
-matplotlib.rcParams['figure.figsize'] = (40, 40)
-#G=nx.ego_graph(G=G, radius=1, n='problem')
+    
+
+
+
+
+#%% MAKING GRAPHS: EGO GRAPH OF 'PROBLEM'
+matplotlib.rcParams['figure.figsize'] = (40, 20)
+G = nx.ego_graph(baseGraph, radius = 1, center = True, n = 'problem')
 partition = community_louvain.best_partition(G)
 pos = community_layout(g=G, partition=partition)
 nx.draw(G, pos, node_color=list(partition.values()), 
-        labels=dict((n,n) for n,d in G.nodes(data=True)), font_color='black', font_size=8, font_weight='bold',
-       edge_color='lightgray')
+        labels=dict((n,n) for n,d in G.nodes(data=True)), font_color='black', font_size=8, font_family='monospace', weight = 'bold',
+       edge_color='lightgrey')
+
 #%%
+
+
+
+
+
+#%% ALTERNATE GRAPH METHOD
 import matplotlib.pyplot as plt
 #%%
 nx.draw(G)
@@ -494,6 +497,49 @@ plt.show() # display
 #trying with Girvan-Newman
 import itertools
 comp = nx.algorithms.community.centrality.girvan_newman(G)
-k = 10
+k = 5
 for i in itertools.islice(comp, k):
     cluster = tuple(sorted(c) for c in communities)
+
+#%% 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
