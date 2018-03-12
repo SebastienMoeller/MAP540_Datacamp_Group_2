@@ -323,22 +323,40 @@ import networkx as nx
 
 #%%
 # FILTER TOKENS TO ONLY CONTAIN NOUNS
-def nounTokens(tokenizedComments):
+def nounsOnly(tokenList):
     newTokens = []
-    for i in range(len(tokenizedComments)):
-        print( i, ' / ', len(tokenizedComments))
-        tags = pos_tag(tokenizedComments[i])
-        nouns = [word for word,pos in tags if (pos == 'NN' or pos == 'NNP' or pos == 'NNS' or pos == 'NNPS')]
+    for i in range(len(tokenList)):
+        tags = pos_tag(tokenList[i])
+        nouns = [word for word, pos in tags if (pos == 'NN' or pos == 'NNP' or pos == 'NNS' or pos == 'NNPS')]
         newTokens.append(nouns)
-    newTokens
-    
+    print(newTokens)
+    return newTokens 
 #%%
-newTokensS8 = nounTokens(tokensS8)
-newTokensiX = nounTokens(tokensiX)
-newTokensi8 = nounTokens(tokensi8)
+newTokensS8 = nounsOnly(tokensS8)
+
+#%%
+newTokensiX = nounsOnly(tokensiX)
+newTokensi8 = nounsOnly(tokensi8)
 
 #%%
 
+
+
+
+
+#%% Replace synonyms of problem with problem
+def problemSync(tokenList):
+    newTokens = []
+    for i in range(len(tokenList)):
+        words = [w.replace('issue', 'problem').replace('default', 'problem').replace('fault', 'problem').replace(
+                'trouble', 'problem').replace('broken', 'problem').replace('defect', 'problem').replace(
+                        'fault', 'problem').replace('malfunction', 'problem').replace('flaw', 'problem').replace(
+                                'setback', 'problem') for w in tokenList[i]]
+        newTokens.append(words)
+    print(newTokens)
+    return newTokens
+#%%
+problemTokensS8 = problemSync(newTokensS8)
 
 
 
@@ -351,7 +369,7 @@ from community import community_louvain
 #iterate over all elements of bigrams
 #G.add_edge(first element bigram, second element bigram)
 
-bigrams = listGrams(newTokensS8 ,2)
+bigrams = listGrams(problemTokensS8 ,2)
 #%%
 countb = Counter(bigrams)
 #%%
@@ -469,6 +487,11 @@ def _position_nodes(g, partition, **kwargs):
     return pos
 #%%
     
+
+
+
+
+#%%
 
 
 
